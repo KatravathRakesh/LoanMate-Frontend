@@ -1,0 +1,316 @@
+/* Manage Payments page - LoanMate Admin */
+
+/* Page base */
+html, body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f6fefe;
+    color: #243447;
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    padding: 2px 16px;
+    min-height: 42px;
+    background: #ffffff;
+}
+.logo { font-size: 18px; }
+.span1 { font-size: 15px; }
+.nav1 {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #d0eef6;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #d0eef6;
+    display: inline-block;
+}
+
+/* Main page wrapper */
+.container-fluid {
+    flex: 1 0 auto;
+}
+
+/* Sidebar */
+.dash {
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.sidebar {
+    height: auto;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    background-color: #dbedf7;
+}
+.sidebar a {
+    display: block;
+    padding: 6px 8px;
+    margin-top: 20px;
+    color: #4d4848;
+    text-decoration: none;
+}
+.sidebar a i {
+    margin-right: 5px;
+    font-size: 16px;
+}
+.sidebar a:hover {
+    border-radius: 5px;
+    color: #0d6efd !important;
+    background-color: #e7f9fe;
+}
+.sidebar a.active {
+    color: #ffffff !important;
+    background-color: #0d6efd;
+}
+
+/* Main content and banner */
+.admin-layout {
+    align-items: stretch;
+    margin-bottom: 0;
+}
+.content {
+    position: relative;
+    background-color: #f6fefe;
+    padding-bottom: 15px;
+}
+.page-banner {
+    position: relative;
+    height: 120px;
+    margin-top: 5px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.page-banner img {
+    width: 100%;
+    height: 120px;
+    margin-top: 0;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.welcome-text {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+}
+.welcome-text h2 {
+    margin-bottom: 5px;
+    font-size: 28px;
+    font-weight: 600;
+}
+.welcome-text p {
+    color: #4d4848;
+    margin-bottom: 0;
+}
+.bi { font-size: 20px; }
+
+/* Bootstrap row spacing */
+.row {
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 11px;
+}
+
+/* Payment summary cards */
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 105px;
+    height: auto;
+    padding: 18px;
+    margin-bottom: 10px;
+    border: 1px solid #dce3ea;
+    border-radius: 9px;
+    background: #ffffff;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+.stat-card > i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 23px;
+}
+.stat-card.blue > i {
+    color: #0d6efd;
+    background: #e6f0ff;
+}
+.stat-card.green > i {
+    color: #198754;
+    background: #e4f5eb;
+}
+.stat-card.yellow > i {
+    color: #b58100;
+    background: #fff4d6;
+}
+.stat-card small {
+    display: block;
+    margin-bottom: 4px;
+    color: #64748b;
+    font-size: 12px;
+}
+.stat-card h3 {
+    margin: 0 0 3px;
+    color: #243447;
+    font-size: 23px;
+    font-weight: 600;
+}
+.stat-card span {
+    color: #718096;
+    font-size: 11px;
+}
+
+/* Payment transactions card */
+.admin-card {
+    height: auto;
+    min-height: 0;
+    margin-bottom: 15px;
+    border: 1px solid #dce3ea;
+    border-radius: 9px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+.admin-card .card-body { padding: 20px; }
+.admin-card h5 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Search */
+.table-search {
+    width: 100%;
+    max-width: 420px;
+    height: 40px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.form-control { font-size: 14px; }
+
+/* Payment transactions table */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+.table {
+    width: 100%;
+    margin-bottom: 0;
+    font-size: 12px;
+}
+.table thead th {
+    background: #edf4fb;
+    border-top: 0;
+    white-space: nowrap;
+}
+.table td, .table th {
+    padding: 12px 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.table tbody tr:hover { background-color: #f5faff; }
+.table .btn {
+    padding: 4px 10px;
+    font-size: 11px;
+}
+.badge {
+    padding: 6px 9px;
+    border-radius: 4px;
+    font-size: 10px;
+}
+
+/* Footer */
+.footer {
+    position: relative;
+    flex-shrink: 0;
+    clear: both;
+    width: 100%;
+    margin-top: 0;
+    padding: 20px 0 8px;
+    background-color: #102a43;
+    color: #ffffff;
+}
+.footer h5 {
+    margin-bottom: 4px;
+    font-size: 20px;
+}
+.footer h5 i { font-size: 20px; }
+.footer h6 {
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+.footer p {
+    margin-bottom: 2px;
+    color: #d6dee8;
+    font-size: 9px;
+}
+.footer a {
+    display: block;
+    margin-bottom: 2px;
+    color: #d6dee8;
+    font-size: 9px;
+    text-decoration: none;
+}
+.footer a:hover { color: #ffffff; }
+.footer hr {
+    margin: 10px 0;
+    border-color: #40566b;
+}
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    color: #d6dee8;
+    font-size: 12px;
+}
+.social {
+    display: inline-block !important;
+    width: 16px;
+    height: 16px;
+    margin-right: 2px;
+    padding-top: 1px;
+    border-radius: 7px;
+    background-color: #34495e;
+    text-align: center;
+}
+.social i { font-size: 10px; }
+
+/* Responsive layout */
+@media (max-width: 767px) {
+    .sidebar {
+        height: auto;
+        min-height: auto;
+        margin-bottom: 12px;
+    }
+    .sidebar a {
+        display: inline-block;
+        margin: 4px 2px;
+    }
+    .content { width: 100%; }
+    .welcome-text {
+        top: 20px;
+        left: 15px;
+    }
+    .welcome-text h2 { font-size: 21px; }
+    .welcome-text p { font-size: 12px; }
+    .stat-card {
+        min-height: 90px;
+        padding: 14px;
+    }
+    .stat-card h3 { font-size: 20px; }
+    .admin-card { margin-bottom: 15px; }
+    .admin-card .card-body { padding: 14px; }
+    .table-search { max-width: 100%; }
+}

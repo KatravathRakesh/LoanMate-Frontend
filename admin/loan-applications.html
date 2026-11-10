@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loan Applications - LoanMate Admin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="../css/admin/loan-application.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo col-md-4">
+        <i class="bi bi-bank2 text-primary"></i>
+        <span class="span1"><b>LoanMate</b> <small>Admin</small></span>
+      </div>
+      <div class="d-flex align-items-center ml-auto">
+        <i class="bi bi-bell mr-3"></i
+        ><img
+          src="../images/admin.png"
+          id="navbarProfileImage"
+          class="nav1 mr-2"
+          alt="Admin"
+        />
+        <span class="span1">
+          <b id="navbarAdminName">Admin</b>
+        </span>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row admin-layout">
+        <aside class="col-md-2 sidebar">
+          <a href="admin-dashboard.html" class=""
+            ><i class="bi bi-speedometer2"></i>Dashboard</a
+          ><a href="manage-customers.html" class=""
+            ><i class="bi bi-people"></i>Manage Customers</a
+          ><a href="loan-applications.html" class="active dash"
+            ><i class="bi bi-file-earmark-text"></i>Loan Applications</a
+          ><a href="active-loans.html" class=""
+            ><i class="bi bi-layers"></i>Active Loans</a
+          ><a href="manage-payments.html" class=""
+            ><i class="bi bi-credit-card"></i>Manage Payments</a
+          ><a href="admin-profile.html" class=""
+            ><i class="bi bi-person"></i>Profile</a
+          ><a href="../home.html"
+            ><i class="bi bi-box-arrow-right"></i>Logout</a
+          >
+        </aside>
+        <main class="col-md-10 content">
+          <div class="page-banner">
+            <img src="../images/dashboard-bg.png" alt="" />
+            <div class="welcome-text">
+              <h2>Loan Applications</h2>
+              <p>Review, approve or reject customer loan requests.</p>
+            </div>
+          </div>
+          <div class="card admin-card mt-3">
+            <div class="card-body">
+              <div class="section-head">
+                <h5>Loan Applications</h5>
+                <span class="badge badge-info">Review applications</span>
+              </div>
+              <input
+                class="form-control table-search mb-3"
+                placeholder="Search application or customer"
+              />
+              <div class="table-responsive">
+                <table class="table table-hover searchable">
+                  <thead>
+                    <tr>
+                      <th>Application ID</th>
+                      <th>Customer</th>
+                      <th>Loan Type</th>
+                      <th>Amount</th>
+                      <th>Tenure</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="loanApplicationTableBody">
+                    <tr>
+                      <td colspan="8" class="text-center">
+                        Loading applications...
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <h5><i class="bi bi-bank2"></i> LoanMate</h5>
+            <p>Your trusted partner for loans and payments.</p>
+          </div>
+          <div class="col-md-2">
+            <h6>Quick Links</h6>
+            <a href="../home.html">Home</a
+            ><a href="admin-dashboard.html">Dashboard</a>
+          </div>
+          <div class="col-md-2">
+            <h6>Management</h6>
+            <a href="manage-customers.html">Customers</a
+            ><a href="loan-applications.html">Applications</a>
+          </div>
+          <div class="col-md-3">
+            <h6>Contact Us</h6>
+            <p>support@loanmate.com</p>
+            <p>+91 98765 43210</p>
+          </div>
+          <div class="col-md-2">
+            <h6>Follow Us</h6>
+            <a class="social" href="#"><i class="bi bi-facebook"></i></a
+            ><a class="social" href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        <hr />
+        <div class="footer-bottom">© 2026 LoanMate. All rights reserved.</div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get saved admin details
+        const savedImage = localStorage.getItem("adminProfileImage");
+
+        const savedName =
+          localStorage.getItem("adminName") || localStorage.getItem("uname");
+
+        const navbarImage = document.getElementById("navbarProfileImage");
+        const navbarName = document.getElementById("navbarAdminName");
+
+        // Update navbar profile image
+        if (savedImage) {
+          navbarImage.src = savedImage;
+        }
+
+        // Update navbar admin name
+        if (savedName) {
+          navbarName.innerText = savedName;
+        }
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      const API_URL = "https://loanmate-backend.onrender.com";
+
+      // Load all loan applications
+      async function loadApplications() {
+        const tbody = document.getElementById("loanApplicationTableBody");
+
+        try {
+          const response = await fetch(`${API_URL}/loan/findAllLoan`);
+
+          if (!response.ok) {
+            throw new Error("Unable to fetch loan applications");
+          }
+
+          const applications = await response.json();
+
+          tbody.innerHTML = "";
+
+          if (applications.length === 0) {
+            tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="text-center">
+              No loan applications found.
+            </td>
+          </tr>`;
+            return;
+          }
+
+          for (const app of applications) {
+            let customerName = "Unknown";
+
+            // Fetch customer details
+            try {
+              const userResponse = await fetch(`${API_URL}/user/${app.userId}`);
+
+              if (userResponse.ok) {
+                const user = await userResponse.json();
+                customerName = user.uname || "Unknown";
+              }
+            } catch (error) {
+              console.error("Customer loading error:", error);
+            }
+
+            const status = (app.status || "PENDING").toUpperCase();
+
+            let badgeClass = "badge-warning";
+
+            if (status === "APPROVED") {
+              badgeClass = "badge-success";
+            } else if (status === "REJECTED") {
+              badgeClass = "badge-danger";
+            }
+
+            let actionButtons = "";
+
+            if (status === "PENDING") {
+              actionButtons = `
+            <button
+              class="btn btn-success btn-sm"
+              onclick="updateApplication(${app.applicationId}, 'APPROVED')">
+              Approve
+            </button>
+
+            <button
+              class="btn btn-danger btn-sm"
+              onclick="updateApplication(${app.applicationId}, 'REJECTED')">
+              Reject
+            </button>
+          `;
+            } else {
+              actionButtons = `<span class="text-muted">${status}</span>`;
+            }
+
+            tbody.innerHTML += `
+          <tr>
+            <td>APP${app.applicationId}</td>
+            <td>${customerName}</td>
+            <td>${app.loanType || "-"}</td>
+            <td>₹${Number(app.loanAmount || 0).toLocaleString("en-IN")}</td>
+            <td>${app.tenure || 0} Months</td>
+            <td>${app.applicationDate || "-"}</td>
+            <td>
+              <span class="badge ${badgeClass}">${status}</span>
+            </td>
+            <td>${actionButtons}</td>
+          </tr>
+        `;
+          }
+        } catch (error) {
+          console.error("Application loading error:", error);
+
+          tbody.innerHTML = `
+        <tr>
+          <td colspan="8" class="text-center text-danger">
+            Unable to load loan applications.
+          </td>
+        </tr>`;
+        }
+      }
+
+      // Approve or reject application
+      async function updateApplication(applicationId, status) {
+        const confirmation = confirm(
+          `Are you sure you want to ${status.toLowerCase()} this application?`,
+        );
+
+        if (!confirmation) return;
+
+        try {
+          const response = await fetch(
+            `${API_URL}/loan/updateById/${applicationId}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                status: status,
+              }),
+            },
+          );
+
+          if (!response.ok) {
+            const error = await response.text();
+            throw new Error(error || "Application update failed");
+          }
+
+          alert(`Application ${status.toLowerCase()} successfully!`);
+
+          // Reload applications
+          loadApplications();
+        } catch (error) {
+          console.error("Update error:", error);
+          alert("Unable to update application: " + error.message);
+        }
+      }
+
+      // Search applications
+      document
+        .querySelector(".table-search")
+        .addEventListener("input", function () {
+          const searchValue = this.value.toLowerCase();
+
+          document
+            .querySelectorAll("#loanApplicationTableBody tr")
+            .forEach((row) => {
+              row.style.display = row.innerText
+                .toLowerCase()
+                .includes(searchValue)
+                ? ""
+                : "none";
+            });
+        });
+
+      // Load applications when page opens
+      window.addEventListener("DOMContentLoaded", loadApplications);
+    </script>
+  </body>
+</html>

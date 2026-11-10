@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loans - LoanMate</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <link rel="stylesheet" href="./css/loans.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm">
+      <!-- logo -->
+      <div class="logo col-md-4">
+        <i class="bi bi-bank2" style="color: #079deb"></i>
+        <span class="span1"><b>LoanMate</b></span>
+      </div>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarMenu"
+      >
+        <i class="bi bi-list"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <!-- Navigation Menu -->
+        <div class="menu col-md-8">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="./home.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./loans.html">Loans</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="./contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- login & Register -->
+
+        <div class="d-flex ml-4">
+          <button type="button" class="btn btn-outline-primary mr-3 btnl">
+            <a href="./login.html" style="color: #079deb; text-decoration: none"
+              >Login</a
+            >
+          </button>
+          <button type="button" class="btn btn-primary">
+            <a
+              href="./register.html"
+              style="color: #ffffff; text-decoration: none"
+              >Register</a
+            >
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Banner -->
+    <div class="loan-banner">
+      <div class="banner-text">
+        <p class="text-primary">WELCOME TO LOANMATE</p>
+        <h2>
+          <b>Choose Your <span>Loan</span></b>
+        </h2>
+        <p>
+          Find the right loan for your needs with simple and secure
+          applications.
+        </p>
+        <a href="./register.html" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
+
+    <!-- Loan Types -->
+    <div class="container loan-section">
+      <h3 class="text-center"><b>Our Loan Types</b></h3>
+      <p class="text-center">Choose a loan that suits your financial needs.</p>
+
+      <div class="row mt-4">
+        <!-- Personal Loan -->
+        <div class="col-md-3 mb-4">
+          <div class="card loan-card">
+            <div class="loan-icon blue">
+              <i class="bi bi-person"></i>
+            </div>
+            <div class="card-body">
+              <h5>Personal Loan</h5>
+              <p>
+                Get financial support for your personal needs and emergencies.
+              </p>
+              <ul>
+                <li>Quick application</li>
+                <li>Flexible tenure</li>
+                <li>Simple process</li>
+              </ul>
+              <a href="./login.html" class="btn btn-outline-primary btn-block">
+                Apply Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Home Loan -->
+        <div class="col-md-3 mb-4">
+          <div class="card loan-card">
+            <div class="loan-icon green">
+              <i class="bi bi-house"></i>
+            </div>
+            <div class="card-body">
+              <h5>Home Loan</h5>
+              <p>Make your dream of owning a home a reality with LoanMate.</p>
+              <ul>
+                <li>Long repayment tenure</li>
+                <li>Flexible options</li>
+                <li>Easy application</li>
+              </ul>
+              <a href="./login.html" class="btn btn-outline-primary btn-block">
+                Apply Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education Loan -->
+        <div class="col-md-3 mb-4">
+          <div class="card loan-card">
+            <div class="loan-icon yellow">
+              <i class="bi bi-mortarboard"></i>
+            </div>
+            <div class="card-body">
+              <h5>Education Loan</h5>
+              <p>Support your education and achieve your academic goals.</p>
+              <ul>
+                <li>Student support</li>
+                <li>Flexible repayment</li>
+                <li>Simple documentation</li>
+              </ul>
+              <a href="./login.html" class="btn btn-outline-primary btn-block">
+                Apply Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business Loan -->
+        <div class="col-md-3 mb-4">
+          <div class="card loan-card">
+            <div class="loan-icon pink">
+              <i class="bi bi-briefcase"></i>
+            </div>
+            <div class="card-body">
+              <h5>Business Loan</h5>
+              <p>Get financial assistance to grow and develop your business.</p>
+              <ul>
+                <li>Business funding</li>
+                <li>Flexible tenure</li>
+                <li>Easy process</li>
+              </ul>
+              <a href="./login.html" class="btn btn-outline-primary btn-block">
+                Apply Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why Choose LoanMate -->
+    <div class="container benefits-section">
+      <h3 class="text-center"><b>Why Choose LoanMate?</b></h3>
+
+      <div class="row text-center mt-4">
+        <div class="col-md-4">
+          <i class="bi bi-shield-check benefit-icon"></i>
+          <h5>Secure Process</h5>
+          <p>Your information is protected.</p>
+        </div>
+
+        <div class="col-md-4">
+          <i class="bi bi-lightning-charge benefit-icon"></i>
+          <h5>Quick Application</h5>
+          <p>Apply for loans easily online.</p>
+        </div>
+
+        <div class="col-md-4">
+          <i class="bi bi-headset benefit-icon"></i>
+          <h5>Customer Support</h5>
+          <p>Get assistance whenever needed.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <h5><i class="bi bi-bank2"></i> LoanMate</h5>
+            <p>
+              Your trusted partner for personal, home, education and business
+              loans.
+            </p>
+          </div>
+
+          <div class="col-md-2">
+            <h6>Quick Links</h6>
+            <a href="./home.html">Home</a>
+            <a href="./loans.html">Loans</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+          </div>
+
+          <div class="col-md-2">
+            <h6>Support</h6>
+            <a href="#">FAQs</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Help Center</a>
+          </div>
+
+          <div class="col-md-3">
+            <h6>Contact Us</h6>
+            <p>support@loanmate.com</p>
+            <p>+91 98765 43210</p>
+          </div>
+
+          <div class="col-md-2">
+            <h6>Follow Us</h6>
+            <a href="#" class="social"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <hr />
+        <div class="footer-bottom">© 2026 LoanMate. All rights reserved.</div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

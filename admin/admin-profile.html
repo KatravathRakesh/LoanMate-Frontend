@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Profile - LoanMate Admin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="../css/admin/profile.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo col-md-4">
+        <i class="bi bi-bank2 text-primary"></i>
+        <span class="span1"><b>LoanMate</b> <small>Admin</small></span>
+      </div>
+      <div class="d-flex align-items-center ml-auto">
+        <i class="bi bi-bell mr-2" style="font-size: 16px"></i>
+
+        <img
+          src="../images/profile.png"
+          id="navbarProfileImage"
+          class="nav1 mr-2"
+          alt="Profile"
+        />
+
+        <span class="span1">
+          <b id="navbarAdminName">Admin</b>
+        </span>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row admin-layout">
+        <aside class="col-md-2 sidebar">
+          <a href="admin-dashboard.html" class=""
+            ><i class="bi bi-speedometer2"></i>Dashboard</a
+          ><a href="manage-customers.html" class=""
+            ><i class="bi bi-people"></i>Manage Customers</a
+          ><a href="loan-applications.html" class=""
+            ><i class="bi bi-file-earmark-text"></i>Loan Applications</a
+          ><a href="active-loans.html" class=""
+            ><i class="bi bi-layers"></i>Active Loans</a
+          ><a href="manage-payments.html" class=""
+            ><i class="bi bi-credit-card"></i>Manage Payments</a
+          ><a href="admin-profile.html" class="active dash"
+            ><i class="bi bi-person"></i>Profile</a
+          ><a href="../home.html"
+            ><i class="bi bi-box-arrow-right"></i>Logout</a
+          >
+        </aside>
+        <main class="col-md-10 content">
+          <div class="page-banner">
+            <img src="../images/dashboard-bg.png" alt="" />
+            <div class="welcome-text">
+              <h2>Admin Profile</h2>
+              <p>View and update administrator information.</p>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-4">
+              <div class="card admin-card admin-profile-card">
+                <div class="card-body text-center">
+                  <div class="admin-avatar">
+                    <img
+                      src="../images/profile.png"
+                      id="adminProfilePreview"
+                      alt="Admin profile"
+                    />
+                  </div>
+
+                  <h4 class="mt-3 mb-1">
+                    <b id="adminDisplayName">Admin</b>
+                  </h4>
+                  <p class="text-muted">System Administrator</p>
+
+                  <hr />
+
+                  <p>
+                    <i class="bi bi-envelope text-primary mr-2"></i>
+                    <span id="adminProfileEmail">Admin Email</span>
+                  </p>
+
+                  <label
+                    for="adminPhotoUpload"
+                    class="btn btn-outline-primary btn-sm"
+                  >
+                    <i class="bi bi-camera mr-1"></i>Change Photo
+                  </label>
+
+                  <input
+                    type="file"
+                    id="adminPhotoUpload"
+                    accept="image/*"
+                    hidden
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card admin-card">
+                <div class="card-body">
+                  <h5 class="mb-4">Personal Information</h5>
+                  <form id="adminProfileForm">
+                    <div class="row">
+                      <div class="form-group col-md-6">
+                        <label>Full Name</label
+                        ><input
+                          type="text"
+                          class="form-control"
+                          id="adminNameInput"
+                          value="Admin"
+                          required
+                        />
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label>Email Address</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="adminEmailInput"
+                          required
+                        />
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label>Mobile Number</label>
+                        <input
+                          type="tel"
+                          class="form-control"
+                          id="adminMobileInput"
+                          required
+                        />
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label>Role</label
+                        ><input
+                          class="form-control"
+                          value="System Administrator"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <button
+                        type="reset"
+                        class="btn btn-outline-secondary mr-2"
+                      >
+                        Cancel</button
+                      ><button type="submit" class="btn btn-primary">
+                        Save Changes
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <h5><i class="bi bi-bank2"></i> LoanMate</h5>
+            <p>Your trusted partner for loans and payments.</p>
+          </div>
+          <div class="col-md-2">
+            <h6>Quick Links</h6>
+            <a href="../home.html">Home</a
+            ><a href="admin-dashboard.html">Dashboard</a>
+          </div>
+          <div class="col-md-2">
+            <h6>Management</h6>
+            <a href="manage-customers.html">Customers</a
+            ><a href="loan-applications.html">Applications</a>
+          </div>
+          <div class="col-md-3">
+            <h6>Contact Us</h6>
+            <p>support@loanmate.com</p>
+            <p>+91 98765 43210</p>
+          </div>
+          <div class="col-md-2">
+            <h6>Follow Us</h6>
+            <a class="social" href="#"><i class="bi bi-facebook"></i></a
+            ><a class="social" href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        <hr />
+        <div class="footer-bottom">© 2026 LoanMate. All rights reserved.</div>
+      </div>
+    </footer>
+
+    <script>
+      const upload = document.getElementById("adminPhotoUpload");
+
+      const profilePreview = document.getElementById("adminProfilePreview");
+      const navbarImage = document.getElementById("navbarProfileImage");
+
+      const nameInput = document.getElementById("adminNameInput");
+      const emailInput = document.getElementById("adminEmailInput");
+      const mobileInput = document.getElementById("adminMobileInput");
+
+      const navbarName = document.getElementById("navbarAdminName");
+      const displayName = document.getElementById("adminDisplayName");
+      const profileEmail = document.getElementById("adminProfileEmail");
+
+      const uid = localStorage.getItem("uid");
+      const role = localStorage.getItem("role");
+
+      let profileImageData = "";
+
+      // Check admin login
+      if (!uid || role !== "ADMIN") {
+        alert("Please login with an admin account.");
+        window.location.href = "../login.html";
+      } else {
+        // Load admin details from MySQL
+        async function loadAdminProfile() {
+          try {
+            const response = await fetch(`https://loanmate-backend.onrender.com/user/${uid}`);
+
+            if (!response.ok) {
+              throw new Error("Unable to load admin profile");
+            }
+
+            const admin = await response.json();
+
+            nameInput.value = admin.uname || "";
+            emailInput.value = admin.email || "";
+            mobileInput.value = admin.mobile || "";
+
+            navbarName.innerText = admin.uname || "Admin";
+            displayName.innerText = admin.uname || "Admin";
+            profileEmail.innerText = admin.email || "";
+
+            if (admin.profileImage) {
+              profileImageData = admin.profileImage;
+              profilePreview.src = profileImageData;
+              navbarImage.src = profileImageData;
+            }
+          } catch (error) {
+            console.error("Profile loading error:", error);
+            alert("Unable to load admin details.");
+          }
+        }
+
+        loadAdminProfile();
+
+        // Select and preview profile image
+        upload.addEventListener("change", function () {
+          const file = this.files[0];
+
+          if (!file) return;
+
+          if (!file.type.startsWith("image/")) {
+            alert("Please select a valid image.");
+            this.value = "";
+            return;
+          }
+
+          if (file.size > 2 * 1024 * 1024) {
+            alert("Image size must be less than 2 MB.");
+            this.value = "";
+            return;
+          }
+
+          const reader = new FileReader();
+
+          reader.onload = function (event) {
+            profileImageData = event.target.result;
+
+            // Update profile and navbar images
+            profilePreview.src = profileImageData;
+            navbarImage.src = profileImageData;
+
+            // Save image for all admin pages
+            localStorage.setItem("adminProfileImage", profileImageData);
+          };
+
+          reader.readAsDataURL(file);
+        });
+
+        // Save profile changes to MySQL
+        document
+          .getElementById("adminProfileForm")
+          .addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const userData = {
+              uname: nameInput.value.trim(),
+              email: emailInput.value.trim(),
+              mobile: mobileInput.value.trim(),
+              profileImage: profileImageData || null,
+            };
+
+            if (!userData.uname || !userData.email || !userData.mobile) {
+              alert("Please fill all fields.");
+              return;
+            }
+
+            try {
+              const response = await fetch(
+                `https://loanmate-backend.onrender.com/user/${uid}`,
+                {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(userData),
+                },
+              );
+
+              if (!response.ok) {
+                const errorText = await response.text();
+
+                console.log("HTTP Status:", response.status);
+                console.log("Backend Error:", errorText);
+
+                alert("Status: " + response.status + "\nError: " + errorText);
+
+                return;
+              }
+
+              const updatedAdmin = await response.json();
+              // Save updated profile image
+              if (updatedAdmin.profileImage) {
+                localStorage.setItem(
+                  "adminProfileImage",
+                  updatedAdmin.profileImage,
+                );
+              }
+
+              // Update browser storage
+              localStorage.setItem("uname", updatedAdmin.uname);
+              localStorage.setItem("adminName", updatedAdmin.uname);
+              localStorage.setItem("email", updatedAdmin.email);
+              localStorage.setItem("mobile", updatedAdmin.mobile);
+
+              // Update displayed information
+              navbarName.innerText = updatedAdmin.uname;
+              displayName.innerText = updatedAdmin.uname;
+              profileEmail.innerText = updatedAdmin.email;
+
+              alert("Admin profile updated successfully!");
+            } catch (error) {
+              console.error("Profile update error:", error);
+              alert("Unable to update profile: " + error.message);
+            }
+          });
+      }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

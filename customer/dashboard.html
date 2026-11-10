@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - LoanMate</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <link rel="stylesheet" href="../css/customer/dashboard.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo col-md-4">
+        <i class="bi bi-bank2" style="color: #079deb"></i>
+        <span class="span1"><b>LoanMate</b></span>
+      </div>
+
+      <div class="d-flex align-items-center ml-auto">
+        <img
+          src="../images/profile.png"
+          id="navbarProfileImage"
+          class="nav1 mr-2"
+          alt="Profile"
+        />
+
+        <span class="span1"><b id="navbarName">Customer</b></span>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- sidebar -->
+        <div class="col-md-2 sidebar" style="background-color: #dbedf7">
+          <a href="./dashboard.html" class="active dash d-block mb-2">
+            <i class="bi bi-house-door"></i>Dashboard</a
+          >
+          <a href="./applyLoan.html" class="d-block mb-2">
+            <i class="bi bi-file-earmark-text"></i>Apply Loan</a
+          >
+
+          <a href="./loanStatus.html" class="d-block mb-2">
+            <i class="bi bi-clock"></i>Loan Status</a
+          >
+          <a href="./paymentHistory.html" class="d-block mb-2">
+            <i class="bi bi-credit-card"></i>Payment History</a
+          >
+          <a href="./MakePayment.html" class="d-block mb-2">
+            <i class="bi bi-credit-card"></i>Make Payment</a
+          >
+
+          <a href="./profile.html" class="d-block mb-2">
+            <i class="bi bi-person-fill"></i>Profile</a
+          >
+
+          <a href="../home.html" class="mb-2">
+            <i class="bi bi-box-arrow-right"></i>Logout</a
+          >
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-10 content" style="background-color: #f6fefe">
+          <div>
+            <img src="../images/dashboard-bg.png" width="100%" height="100%" />
+            <div class="welcome-text">
+              <h2>
+                Welcome,
+                <span id="customerName" style="color: #0564d1">Customer</span>
+              </h2>
+              <p>Manage your loans easily, securely and anytime.</p>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <!-- LEFT 9 COLUMNS -->
+            <div class="col-md-10">
+              <div class="row">
+                <!-- Total Loans -->
+                <div class="col-md-3 px-1">
+                  <div class="card card1" style="background-color: #e7f9fe">
+                    <div class="card-body d-flex align-items-center">
+                      <div
+                        class="card-icon text-primary rounded"
+                        style="background-color: #c3e4f4"
+                      >
+                        <i class="bi bi-file-earmark-text"></i>
+                      </div>
+
+                      <div class="card-text">
+                        <h6>Total Loans</h6>
+
+                        <h4 id="totalLoans">0</h4>
+
+                        <small class="text-muted">
+                          All your loan applications
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Active Loans -->
+                <div class="col-md-3 px-1">
+                  <div class="card card1" style="background-color: #e0f6e5">
+                    <div class="card-body d-flex align-items-center">
+                      <div
+                        class="card-icon text-success rounded"
+                        style="background-color: #a7f0b8"
+                      >
+                        <i class="bi bi-check-circle-fill"></i>
+                      </div>
+
+                      <div class="card-text">
+                        <h6>Active Loans</h6>
+
+                        <h4 id="activeLoans">0</h4>
+
+                        <small class="text-muted">
+                          Currently running loans
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Pending Applications -->
+                <div class="col-md-3 px-1">
+                  <div class="card card1" style="background-color: #e9f4cf">
+                    <div class="card-body d-flex align-items-center">
+                      <div
+                        class="card-icon text-warning rounded"
+                        style="background-color: #f5e48f"
+                      >
+                        <i class="bi bi-clock-fill"></i>
+                      </div>
+
+                      <div class="card-text">
+                        <h6>Pending Applications</h6>
+
+                        <h4 id="pendingApplications">0</h4>
+
+                        <small class="text-muted"> Under review </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Closed Loans -->
+                <div class="col-md-3 px-1">
+                  <div class="card card1" style="background-color: #fadfde">
+                    <div class="card-body d-flex align-items-center">
+                      <div
+                        class="card-icon text-danger rounded"
+                        style="background-color: #f1b8af"
+                      >
+                        <i class="bi bi-x-circle-fill"></i>
+                      </div>
+
+                      <div class="card-text">
+                        <h6>Closed Loans</h6>
+
+                        <h4 id="closedLoans">0</h4>
+
+                        <small class="text-muted"> Successfully closed </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <nav class="navbar navbar-expand-sm">
+                  <div class="loan1">
+                    <span class="span1"><b>Recent Loan Applications</b></span>
+                  </div>
+
+                  <!-- Viwe All -->
+
+                  <div class="d-flex btn2">
+                    <a
+                      href="./loanStatus.html"
+                      class="btn btn-outline-primary"
+                      style="text-decoration: none"
+                    >
+                      View All
+                    </a>
+                  </div>
+                </nav>
+
+                <div class="table-responsive">
+                  <table class="table table-hover mb-0">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Application ID</th>
+                        <th>Loan Type</th>
+                        <th>Amount</th>
+                        <th>Application Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="loanTableBody">
+                      <tr>
+                        <td colspan="6" class="text-center">
+                          Loading loan applications...
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT SIDE - QUICK ACTIONS -->
+            <div class="col-md-2 px-1 mt-1">
+              <!-- Quick Actions -->
+              <div class="card quick-card">
+                <div class="card-body p-2">
+                  <h6 class="mb-2">Quick Actions</h6>
+
+                  <!-- Apply Loan -->
+                  <button
+                    onclick="location.href = './applyLoan.html'"
+                    class="btn btn-block btn-sm mb-2"
+                    style="background-color: #e7f9fe"
+                  >
+                    <i class="bi bi-file-earmark-text mr-1"></i>
+                    <p>Apply for a Loan</p>
+                  </button>
+
+                  <!-- Loan Status -->
+                  <button
+                    onclick="location.href = './loanStatus.html'"
+                    class="btn btn-block btn-sm mb-2"
+                    style="background-color: #e7f9fe"
+                  >
+                    <i class="bi bi-clock mr-1"></i>
+                    <p>Check Loan Status</p>
+                  </button>
+
+                  <!-- Payment History -->
+                  <button
+                    onclick="location.href = './paymentHistory.html'"
+                    class="btn btn-block btn-sm mb-2"
+                    style="background-color: #e7f9fe"
+                  >
+                    <i class="bi bi-credit-card mr-1"></i>
+                    <p>Payment History</p>
+                  </button>
+
+                  <!-- Edit Profile -->
+                  <button
+                    onclick="location.href = './profile.html'"
+                    class="btn btn-block btn-sm"
+                    style="background-color: #e7f9fe"
+                  >
+                    <i class="bi bi-person-fill mr-1"></i>
+                    <p>Edit Profile</p>
+                  </button>
+                </div>
+              </div>
+
+              <div class="card profile-card">
+                <div class="card-body">
+                  <h6>Your Profile</h6>
+
+                  <div class="profile-info">
+                    <div class="profile-icon">
+                      <img
+                        src="../images/profile.png"
+                        id="profileCardImage"
+                        alt="Profile Picture"
+                        style="
+                          width: 100%;
+                          height: 100%;
+                          object-fit: cover;
+                          border-radius: 50%;
+                        "
+                      />
+                    </div>
+
+                    <div>
+                      <b id="profileName">Customer</b>
+                      <small id="profileEmail">customer@example.com</small>
+                      <small class="mt-1" id="profileMobile"></small>
+                    </div>
+                  </div>
+
+                  <button
+                    onclick="location.href = './profile.html'"
+                    class="btn btn-outline-primary btn-sm profile-btn"
+                  >
+                    View Profile
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <!-- Logo & Description -->
+          <div class="col-md-3">
+            <h5><i class="bi bi-bank2"></i> LoanMate</h5>
+            <p>
+              Your trusted partner for personal, home,<br />
+              education and business loans.
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="col-md-2">
+            <h6>Quick Links</h6>
+            <a href="#">Home</a>
+            <a href="#">Loans</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+          </div>
+
+          <!-- Support -->
+          <div class="col-md-2">
+            <h6>Support</h6>
+            <a href="#">FAQs</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Help Center</a>
+          </div>
+
+          <!-- Contact -->
+          <div class="col-md-3">
+            <h6>Contact Us</h6>
+            <p>
+              <i class="bi bi-envelope-fill contact"></i> support@loanmate.com
+            </p>
+            <p><i class="bi bi-telephone-fill contact"></i> +91 98765 43210</p>
+            <p>
+              <i class="bi bi-geo-alt-fill contact"></i> 123, Main Street,
+              Hyderabad, India
+            </p>
+          </div>
+
+          <!-- Social Media -->
+          <div class="col-md-2">
+            <h6>Follow Us</h6>
+
+            <a href="#" class="social">
+              <i class="bi bi-facebook"></i>
+            </a>
+
+            <a href="#" class="social">
+              <i class="bi bi-twitter"></i>
+            </a>
+
+            <a href="#" class="social">
+              <i class="bi bi-instagram"></i>
+            </a>
+
+            <a href="#" class="social">
+              <i class="bi bi-linkedin"></i>
+            </a>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="footer-bottom">
+          <span>© 2026 LoanMate. All rights reserved.</span>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const userId = localStorage.getItem("uid");
+      const imageKey = "profileImage_" + userId;
+      const savedImage = localStorage.getItem(imageKey);
+
+      if (savedImage) {
+        document.getElementById("navbarProfileImage").src = savedImage;
+        document.getElementById("profileCardImage").src = savedImage;
+      }
+
+      // Get logged-in customer details
+      const customerName = localStorage.getItem("uname");
+      const customerEmail = localStorage.getItem("email");
+
+      // Update navbar name
+      document.getElementById("navbarName").innerText =
+        customerName || "Customer";
+
+      // Update welcome name
+      document.getElementById("customerName").innerText =
+        customerName || "Customer";
+
+      // Update profile name
+      document.getElementById("profileName").innerText =
+        customerName || "Customer";
+
+      // Update profile email
+      document.getElementById("profileEmail").innerText =
+        customerEmail || "customer@example.com";
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      async function loadDashboard() {
+        const userId = localStorage.getItem("uid");
+
+        if (!userId) {
+          alert("Please login first!");
+          window.location.href = "../login.html";
+          return;
+        }
+
+        try {
+          // Fetch customer profile
+          const userResponse = await fetch(
+            `https://loanmate-backend.onrender.com/user/${userId}`,
+          );
+
+          if (!userResponse.ok) {
+            throw new Error("Unable to load customer details");
+          }
+
+          const user = await userResponse.json();
+
+          document.getElementById("navbarName").innerText =
+            user.uname || "Customer";
+          document.getElementById("customerName").innerText =
+            user.uname || "Customer";
+          document.getElementById("profileName").innerText =
+            user.uname || "Customer";
+          document.getElementById("profileEmail").innerText = user.email || "";
+          document.getElementById("profileMobile").innerText =
+            user.mobile || "";
+
+          // Fetch customer loan applications
+          const response = await fetch(
+            `https://loanmate-backend.onrender.com/loan/user/${userId}`,
+          );
+
+          if (!response.ok) {
+            throw new Error("Unable to fetch loan applications");
+          }
+
+          const loans = await response.json();
+
+          // Dashboard counts
+          const total = loans.length;
+
+          const pending = loans.filter(
+            (loan) => loan.status?.toUpperCase() === "PENDING",
+          ).length;
+
+          const active = loans.filter(
+            (loan) => loan.status?.toUpperCase() === "ACTIVE",
+          ).length;
+
+          const closed = loans.filter(
+            (loan) => loan.status?.toUpperCase() === "CLOSED",
+          ).length;
+
+          document.getElementById("totalLoans").innerText = total;
+          document.getElementById("pendingApplications").innerText = pending;
+          document.getElementById("activeLoans").innerText = active;
+          document.getElementById("closedLoans").innerText = closed;
+
+          // Recent loan applications
+          const tableBody = document.getElementById("loanTableBody");
+          tableBody.innerHTML = "";
+
+          if (loans.length === 0) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="text-center">
+                        No loan applications found.
+                    </td>
+                </tr>
+            `;
+            return;
+          }
+
+          // Show latest applications first
+          loans
+            .slice()
+            .reverse()
+            .forEach((loan) => {
+              const row = document.createElement("tr");
+
+              const status = loan.status || "PENDING";
+
+              row.innerHTML = `
+                <td>${loan.applicationId}</td>
+                <td>${loan.loanType || "-"}</td>
+                <td>₹${Number(loan.loanAmount || 0).toLocaleString("en-IN")}</td>
+                <td>${loan.applicationDate || "-"}</td>
+                <td>${status}</td>
+                <td>
+                    <a href="./loanStatus.html"
+                       class="btn btn-sm btn-outline-primary">
+                       View
+                    </a>
+                </td>
+            `;
+
+              tableBody.appendChild(row);
+            });
+        } catch (error) {
+          console.error("Dashboard Error:", error);
+
+          document.getElementById("loanTableBody").innerHTML = `
+            <tr>
+                <td colspan="6" class="text-center text-danger">
+                    Unable to load dashboard data.
+                </td>
+            </tr>
+        `;
+        }
+      }
+
+      loadDashboard();
+    </script>
+  </body>
+</html>

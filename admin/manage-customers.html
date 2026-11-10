@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Customers - LoanMate Admin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="../css/admin/manage-customers.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo col-md-4">
+        <i class="bi bi-bank2 text-primary"></i>
+        <span class="span1"><b>LoanMate</b> <small>Admin</small></span>
+      </div>
+      <div class="d-flex align-items-center ml-auto">
+        <i class="bi bi-bell mr-3"></i
+        ><img
+          src="../images/admin.png"
+          id="navbarProfileImage"
+          class="nav1 mr-2"
+          alt="Admin"
+        />
+        <span class="span1">
+          <b id="navbarAdminName">Admin</b>
+        </span>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row admin-layout">
+        <aside class="col-md-2 sidebar">
+          <a href="admin-dashboard.html" class=""
+            ><i class="bi bi-speedometer2"></i>Dashboard</a
+          ><a href="manage-customers.html" class="active dash"
+            ><i class="bi bi-people"></i>Manage Customers</a
+          ><a href="loan-applications.html" class=""
+            ><i class="bi bi-file-earmark-text"></i>Loan Applications</a
+          ><a href="active-loans.html" class=""
+            ><i class="bi bi-layers"></i>Active Loans</a
+          ><a href="manage-payments.html" class=""
+            ><i class="bi bi-credit-card"></i>Manage Payments</a
+          ><a href="admin-profile.html" class=""
+            ><i class="bi bi-person"></i>Profile</a
+          ><a href="../home.html"
+            ><i class="bi bi-box-arrow-right"></i>Logout</a
+          >
+        </aside>
+        <main class="col-md-10 content">
+          <div class="page-banner">
+            <img src="../images/dashboard-bg.png" alt="" />
+            <div class="welcome-text">
+              <h2>Manage Customers</h2>
+              <p>View and manage registered customers.</p>
+            </div>
+          </div>
+
+          <!-- Add Customer Modal -->
+          <div class="modal fade" id="addCustomerModal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add New Customer</h5>
+                  <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body">
+                  <form id="addCustomerForm">
+                    <div class="form-group">
+                      <label>Full Name</label>
+                      <input
+                        type="text"
+                        id="newCustomerName"
+                        class="form-control"
+                        required
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <label>Email Address</label>
+                      <input
+                        type="email"
+                        id="newCustomerEmail"
+                        class="form-control"
+                        required
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <label>Password</label>
+                      <input
+                        type="password"
+                        id="newCustomerPassword"
+                        class="form-control"
+                        required
+                        minlength="8"
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <label>Mobile Number</label>
+                      <input
+                        type="tel"
+                        id="newCustomerMobile"
+                        class="form-control"
+                        required
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <label>Address</label>
+                      <textarea
+                        id="newCustomerAddress"
+                        class="form-control"
+                        required
+                      ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">
+                      Register Customer
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card admin-card mt-3">
+            <div class="card-body">
+              <div class="section-head">
+                <h5>Customer Details</h5>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  data-toggle="modal"
+                  data-target="#addCustomerModal"
+                >
+                  <i class="bi bi-plus-circle"></i> Add Customer
+                </button>
+              </div>
+              <input
+                class="form-control table-search mb-3"
+                placeholder="Search customer name, email or ID"
+              />
+              <div class="table-responsive">
+                <table class="table table-hover searchable">
+                  <thead>
+                    <tr>
+                      <th>Customer ID</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Mobile</th>
+                      <th>Role</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="customerTableBody">
+                    <tr>
+                      <td colspan="7" class="text-center">
+                        Loading customers...
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <h5><i class="bi bi-bank2"></i> LoanMate</h5>
+            <p>Your trusted partner for loans and payments.</p>
+          </div>
+          <div class="col-md-2">
+            <h6>Quick Links</h6>
+            <a href="../home.html">Home</a
+            ><a href="admin-dashboard.html">Dashboard</a>
+          </div>
+          <div class="col-md-2">
+            <h6>Management</h6>
+            <a href="manage-customers.html">Customers</a
+            ><a href="loan-applications.html">Applications</a>
+          </div>
+          <div class="col-md-3">
+            <h6>Contact Us</h6>
+            <p>support@loanmate.com</p>
+            <p>+91 98765 43210</p>
+          </div>
+          <div class="col-md-2">
+            <h6>Follow Us</h6>
+            <a class="social" href="#"><i class="bi bi-facebook"></i></a
+            ><a class="social" href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        <hr />
+        <div class="footer-bottom">© 2026 LoanMate. All rights reserved.</div>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      const API_URL = "https://loanmate-backend.onrender.com";
+
+      // Load admin navbar information
+      const savedImage = localStorage.getItem("adminProfileImage");
+      const savedName =
+        localStorage.getItem("adminName") || localStorage.getItem("uname");
+
+      if (savedImage) {
+        document.getElementById("navbarProfileImage").src = savedImage;
+      }
+
+      if (savedName) {
+        document.getElementById("navbarAdminName").innerText = savedName;
+      }
+
+      // Load customers from MySQL
+      async function loadCustomers() {
+        const tbody = document.getElementById("customerTableBody");
+
+        try {
+          const response = await fetch(`${API_URL}/user/all`);
+
+          if (!response.ok) {
+            throw new Error("Unable to fetch customers");
+          }
+
+          const users = await response.json();
+
+          // Display only CUSTOMER accounts
+          const customers = users.filter(
+            (user) => user.role?.toUpperCase() === "CUSTOMER",
+          );
+
+          tbody.innerHTML = "";
+
+          if (customers.length === 0) {
+            tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="text-center">
+              No customers found.
+            </td>
+          </tr>`;
+            return;
+          }
+
+          customers.forEach((user) => {
+            tbody.innerHTML += `
+          <tr>
+            <td>CU${user.uid}</td>
+            <td>${user.uname || "-"}</td>
+            <td>${user.email || "-"}</td>
+            <td>${user.mobile || "-"}</td>
+            <td>${user.role}</td>
+            <td>
+              <span class="badge badge-success">Registered</span>
+            </td>
+            <td>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="viewCustomer(${user.uid})">
+                View
+              </button>
+            </td>
+          </tr>
+        `;
+          });
+        } catch (error) {
+          console.error("Customer loading error:", error);
+
+          tbody.innerHTML = `
+        <tr>
+          <td colspan="7" class="text-center text-danger">
+            Unable to load customers.
+          </td>
+        </tr>`;
+        }
+      }
+
+      // View customer information
+      async function viewCustomer(uid) {
+        try {
+          const response = await fetch(`${API_URL}/user/${uid}`);
+
+          if (!response.ok) {
+            throw new Error("Unable to fetch customer details");
+          }
+
+          const user = await response.json();
+
+          alert(
+            "Customer Details\n\n" +
+              "ID: " +
+              user.uid +
+              "\n" +
+              "Name: " +
+              user.uname +
+              "\n" +
+              "Email: " +
+              user.email +
+              "\n" +
+              "Mobile: " +
+              user.mobile +
+              "\n" +
+              "Address: " +
+              (user.address || "-") +
+              "\n" +
+              "Role: " +
+              user.role,
+          );
+        } catch (error) {
+          console.error(error);
+          alert("Unable to load customer details.");
+        }
+      }
+
+      // Search customers
+      document
+        .querySelector(".table-search")
+        .addEventListener("input", function () {
+          const searchValue = this.value.toLowerCase();
+
+          document.querySelectorAll("#customerTableBody tr").forEach((row) => {
+            row.style.display = row.innerText
+              .toLowerCase()
+              .includes(searchValue)
+              ? ""
+              : "none";
+          });
+        });
+      document
+        .getElementById("addCustomerForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const customerData = {
+            uname: document.getElementById("newCustomerName").value.trim(),
+            email: document.getElementById("newCustomerEmail").value.trim(),
+            password: document.getElementById("newCustomerPassword").value,
+            mobile: document.getElementById("newCustomerMobile").value.trim(),
+            address: document.getElementById("newCustomerAddress").value.trim(),
+            role: "CUSTOMER",
+          };
+
+          try {
+            const response = await fetch(`${API_URL}/user/register`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(customerData),
+            });
+
+            const result = await response.text();
+
+            console.log("Registration response:", response.status, result);
+
+            if (!response.ok) {
+              throw new Error(result || "Registration failed");
+            }
+
+            alert("Customer added successfully!");
+
+            document.getElementById("addCustomerForm").reset();
+
+            $("#addCustomerModal").modal("hide");
+
+            await loadCustomers();
+          } catch (error) {
+            console.error("Add customer error:", error);
+            alert("Customer not added: " + error.message);
+          }
+        });
+
+      // Load customers when page opens
+      window.addEventListener("DOMContentLoaded", loadCustomers);
+    </script>
+  </body>
+</html>

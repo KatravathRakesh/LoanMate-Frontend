@@ -1,0 +1,269 @@
+/* Contact page - LoanMate
+   Navbar and footer styling matches the existing Home page. */
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Navbar - keep the same Home page design */
+.navbar {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background-color: #ffffff;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #443f3f !important;
+}
+
+.nav-link:hover {
+  color: #0d6efd !important;
+  text-decoration: underline;
+  text-underline-offset: 14px;
+}
+
+.bi {
+  font-size: 20px;
+}
+
+.btn {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.btnl:hover {
+  background-color: #079deb;
+  border-color: #079deb;
+}
+
+.btnl:hover a {
+  color: #ffffff !important;
+}
+
+.span1 {
+  position: absolute;
+  top: 5px;
+  left: 45px;
+}
+
+/* Main page content */
+main {
+  flex: 1 0 auto;
+}
+
+.page-banner {
+  min-height: 190px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 25px 40px;
+  background-color: #e7f9fe;
+}
+
+.page-banner h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.page-banner p {
+  color: #4d4848;
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+.page-section {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.page-section h5 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.page-section p {
+  color: #4d4848;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Contact information cards
+   IMPORTANT: height:auto prevents cards stretching to the form height. */
+.info-card {
+  width: 100%;
+  height: auto;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 14px;
+}
+
+.info-card .card-body {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  padding: 16px;
+}
+
+.info-icon {
+  display: inline-block;
+  color: #0d6efd;
+  font-size: 23px;
+  margin-bottom: 8px;
+}
+
+.info-card h6 {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.info-card p {
+  font-size: 11px;
+  margin-bottom: 0;
+}
+
+/* Contact form */
+#contactForm label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#contactForm .form-group {
+  margin-bottom: 12px;
+}
+
+#contactForm .form-control {
+  width: 100%;
+  min-height: 34px;
+  height: auto;
+  padding: 7px 9px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+#contactForm textarea.form-control {
+  min-height: 90px;
+  resize: vertical;
+}
+
+#contactForm button {
+  font-size: 12px;
+  padding: 6px 14px;
+}
+
+#formMessage {
+  color: #218838;
+  font-size: 12px;
+}
+
+/* Footer - same color, spacing and typography as Home page */
+.footer {
+  width: 100%;
+  margin-top: auto;
+  flex-shrink: 0;
+  background-color: #102a43;
+  color: #ffffff;
+  padding: 20px 0 8px;
+  border-top: 1px solid #0d6efd;
+}
+
+.footer h5 {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.footer h5 i {
+  font-size: 20px;
+}
+
+.footer h6 {
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.footer p {
+  color: #d6dee8;
+  font-size: 9px;
+  margin-bottom: 2px;
+}
+
+.footer a {
+  display: block;
+  color: #d6dee8;
+  font-size: 9px;
+  text-decoration: none;
+  margin-bottom: 2px;
+}
+
+.footer a:hover {
+  color: #ffffff;
+}
+
+.footer hr {
+  border-color: #40566b;
+  margin: 10px 0;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  color: #d6dee8;
+  font-size: 12px;
+}
+
+.contact {
+  font-size: 10px;
+}
+
+.social {
+  display: inline-block !important;
+  background-color: #34495e;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  padding-top: 1px;
+  border-radius: 7px;
+  margin-right: 2px;
+}
+
+.social i {
+  font-size: 10px;
+}
+
+/* Mobile layout */
+@media (max-width: 767px) {
+  .page-banner {
+    min-height: 160px;
+    padding: 20px;
+  }
+
+  .page-banner h2 {
+    font-size: 23px;
+  }
+
+  .page-section {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .footer .row > div {
+    margin-bottom: 12px;
+  }
+}

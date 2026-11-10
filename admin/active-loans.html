@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Active Loans - LoanMate Admin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="../css/admin/active-loans.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo col-md-4">
+        <i class="bi bi-bank2 text-primary"></i>
+        <span class="span1"><b>LoanMate</b> <small>Admin</small></span>
+      </div>
+      <div class="d-flex align-items-center ml-auto">
+        <i class="bi bi-bell mr-3"></i
+        ><img
+          src="../images/admin.png"
+          id="navbarProfileImage"
+          class="nav1 mr-2"
+          alt="Admin"
+        />
+        <span class="span1">
+          <b id="navbarAdminName">Admin</b>
+        </span>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row admin-layout">
+        <aside class="col-md-2 sidebar">
+          <a href="admin-dashboard.html" class=""
+            ><i class="bi bi-speedometer2"></i>Dashboard</a
+          ><a href="manage-customers.html" class=""
+            ><i class="bi bi-people"></i>Manage Customers</a
+          ><a href="loan-applications.html" class=""
+            ><i class="bi bi-file-earmark-text"></i>Loan Applications</a
+          ><a href="active-loans.html" class="active dash"
+            ><i class="bi bi-layers"></i>Active Loans</a
+          ><a href="manage-payments.html" class=""
+            ><i class="bi bi-credit-card"></i>Manage Payments</a
+          ><a href="admin-profile.html" class=""
+            ><i class="bi bi-person"></i>Profile</a
+          ><a href="../home.html"
+            ><i class="bi bi-box-arrow-right"></i>Logout</a
+          >
+        </aside>
+        <main class="col-md-10 content">
+          <div class="page-banner">
+            <img src="../images/dashboard-bg.png" alt="" />
+            <div class="welcome-text">
+              <h2>Active Loans</h2>
+              <p>Monitor active loans and repayment details.</p>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-4">
+              <div class="stat-card green">
+                <i class="bi bi-check-circle"></i>
+                <div>
+                  <small>Active Loans</small>
+                  <h3 id="activeLoanCount">0</h3>
+                  <span>Currently running</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stat-card blue">
+                <i class="bi bi-cash-stack"></i>
+                <div>
+                  <small>Total Loan Amount</small>
+                  <h3 id="totalLoanAmount">₹0</h3>
+                  <span>Active portfolio</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stat-card yellow">
+                <i class="bi bi-calendar-check"></i>
+                <div>
+                  <small>Total Remaining Amount</small>
+                  <h3 id="totalRemainingAmount">₹0</h3>
+                  <span>Outstanding active loans</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card admin-card mt-3">
+            <div class="card-body">
+              <h5>Active Loan Records</h5>
+              <input
+                class="form-control table-search mb-3"
+                placeholder="Search loan ID or customer"
+              />
+              <div class="table-responsive">
+                <table class="table table-hover searchable">
+                  <thead>
+                    <tr>
+                      <th>Loan ID</th>
+                      <th>Customer</th>
+                      <th>Loan Type</th>
+                      <th>Principal</th>
+                      <th>Interest</th>
+                      <th>Tenure</th>
+                      <th>Start Date</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="activeLoanTableBody">
+                    <tr>
+                      <td colspan="8" class="text-center">Loading loans...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <h5><i class="bi bi-bank2"></i> LoanMate</h5>
+            <p>Your trusted partner for loans and payments.</p>
+          </div>
+          <div class="col-md-2">
+            <h6>Quick Links</h6>
+            <a href="../home.html">Home</a
+            ><a href="admin-dashboard.html">Dashboard</a>
+          </div>
+          <div class="col-md-2">
+            <h6>Management</h6>
+            <a href="manage-customers.html">Customers</a
+            ><a href="loan-applications.html">Applications</a>
+          </div>
+          <div class="col-md-3">
+            <h6>Contact Us</h6>
+            <p>support@loanmate.com</p>
+            <p>+91 98765 43210</p>
+          </div>
+          <div class="col-md-2">
+            <h6>Follow Us</h6>
+            <a class="social" href="#"><i class="bi bi-facebook"></i></a
+            ><a class="social" href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        <hr />
+        <div class="footer-bottom">© 2026 LoanMate. All rights reserved.</div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedImage = localStorage.getItem("adminProfileImage");
+        const savedName =
+          localStorage.getItem("adminName") || localStorage.getItem("uname");
+
+        const navbarImage = document.getElementById("navbarProfileImage");
+        const navbarName = document.getElementById("navbarAdminName");
+
+        if (savedImage) {
+          navbarImage.src = savedImage;
+        }
+
+        if (savedName && navbarName) {
+          navbarName.innerText = savedName;
+        }
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      const API_URL = "https://loanmate-backend.onrender.com";
+
+      async function loadActiveLoans() {
+        const tbody = document.getElementById("activeLoanTableBody");
+
+        try {
+          const response = await fetch(`${API_URL}/loans/getAllLoan`);
+
+          if (!response.ok) {
+            throw new Error("Unable to fetch loans");
+          }
+
+          const loans = await response.json();
+
+          const activeLoans = loans.filter(
+            (loan) => loan.status?.toUpperCase() === "ACTIVE",
+          );
+
+          const totalAmount = activeLoans.reduce(
+            (sum, loan) => sum + Number(loan.loanAmount || 0),
+            0,
+          );
+
+          const remainingAmount = activeLoans.reduce(
+            (sum, loan) => sum + Number(loan.remainingAmount || 0),
+            0,
+          );
+
+          document.getElementById("activeLoanCount").innerText =
+            activeLoans.length;
+
+          document.getElementById("totalLoanAmount").innerText =
+            "₹" + totalAmount.toLocaleString("en-IN");
+
+          document.getElementById("totalRemainingAmount").innerText =
+            "₹" + remainingAmount.toLocaleString("en-IN");
+
+          tbody.innerHTML = "";
+
+          if (activeLoans.length === 0) {
+            tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="text-center">
+              No active loans found.
+            </td>
+          </tr>`;
+            return;
+          }
+
+          for (const loan of activeLoans) {
+            let customerName = "Unknown";
+            let loanType = "-";
+
+            try {
+              const userResponse = await fetch(
+                `${API_URL}/user/${loan.userId}`,
+              );
+
+              if (userResponse.ok) {
+                const user = await userResponse.json();
+                customerName = user.uname || "Unknown";
+              }
+
+              if (loan.applicationId) {
+                const appResponse = await fetch(
+                  `${API_URL}/loan/findById/${loan.applicationId}`,
+                );
+
+                if (appResponse.ok) {
+                  const application = await appResponse.json();
+                  loanType = application.loanType || "-";
+                }
+              }
+            } catch (error) {
+              console.error("Customer details error:", error);
+            }
+
+            tbody.innerHTML += `
+          <tr>
+            <td>LN${loan.loanId}</td>
+            <td>${customerName}</td>
+            <td>${loanType}</td>
+            <td>₹${Number(loan.loanAmount || 0).toLocaleString("en-IN")}</td>
+            <td>${loan.interestRate || 0}%</td>
+            <td>${loan.tenure || 0} Months</td>
+            <td>${loan.loanStartDate || "-"}</td>
+            <td>
+              <span class="badge badge-success">Active</span>
+            </td>
+          </tr>`;
+          }
+        } catch (error) {
+          console.error(error);
+
+          tbody.innerHTML = `
+        <tr>
+          <td colspan="8" class="text-center text-danger">
+            Unable to load active loans.
+          </td>
+        </tr>`;
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", loadActiveLoans);
+    </script>
+
+    <script>
+      document.querySelectorAll(".table-search").forEach((input) =>
+        input.addEventListener("input", () => {
+          const tb = input.closest(".card").querySelector("tbody");
+          if (tb) {
+            const q = input.value.toLowerCase();
+            tb.querySelectorAll("tr").forEach(
+              (row) =>
+                (row.style.display = row.innerText.toLowerCase().includes(q)
+                  ? ""
+                  : "none"),
+            );
+          }
+        }),
+      );
+    </script>
+  </body>
+</html>

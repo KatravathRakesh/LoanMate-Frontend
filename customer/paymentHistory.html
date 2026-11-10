@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment History - LoanMate</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <link rel="stylesheet" href="../css/customer/paymentHistory.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo col-md-4">
+        <i class="bi bi-bank2" style="color: #079deb"></i>
+        <span class="span1"><b>LoanMate</b></span>
+      </div>
+
+      <div class="d-flex align-items-center ml-auto">
+        
+
+        <img
+          src="../images/profile.png"
+          id="navbarProfileImage"
+          class="nav1 mr-2"
+          alt="Profile"
+        />
+
+        <span class="span1"><b id="navbarName">Customer</b></span>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- sidebar -->
+        <div class="col-md-2 sidebar" style="background-color: #dbedf7">
+          <a href="./dashboard.html" class="d-block mb-2">
+            <i class="bi bi-house-door"></i>Dashboard</a
+          >
+          <a href="applyLoan.html" class="d-block mb-2">
+            <i class="bi bi-file-earmark-text"></i>Apply Loan</a
+          >
+
+          <a href="loanStatus.html" class="d-block mb-2">
+            <i class="bi bi-clock"></i>Loan Status</a
+          >
+          <a href="./paymentHistory.html" class="active dash d-block mb-2">
+            <i class="bi bi-credit-card"></i>Payment History</a
+          >
+          <a href="./MakePayment.html" class="d-block mb-2">
+            <i class="bi bi-credit-card"></i>Make Payment</a
+          >
+
+          <a href="./profile.html" class="d-block mb-2">
+            <i class="bi bi-person-fill"></i>Profile</a
+          >
+
+          <a href="../home.html" class="mb-2">
+            <i class="bi bi-box-arrow-right"></i>Logout</a
+          >
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-10 content" style="background-color: #f6fefe">
+          <div>
+            <img src="../images/dashboard-bg.png" width="100%" height="100%" />
+            <div class="welcome-text">
+              <h2>Payment <span style="color: #0564d1">History</span></h2>
+              <p>View all your loan payments and transaction details.</p>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <!-- LEFT 9 COLUMNS -->
+            <div class="col-md-12">
+              <div class="row summary-row">
+                <div class="col-md-3 px-1">
+                  <div class="card card1 total-card">
+                    <div class="card-body d-flex align-items-center">
+                      <div class="card-icon text-primary">
+                        <i class="bi bi-credit-card"></i>
+                      </div>
+                      <div class="card-text">
+                        <h6>Total Payments</h6>
+                        <h4 id="totalPayments">0</h4>
+                        <small>All loan payments</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3 px-1">
+                  <div class="card card1 paid-card">
+                    <div class="card-body d-flex align-items-center">
+                      <div class="card-icon text-success">
+                        <i class="bi bi-check-lg"></i>
+                      </div>
+                      <div class="card-text">
+                        <h6>Amount Paid</h6>
+                        <h4 id="amountPaid">₹0</h4>
+                        <small>Total amount paid</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3 px-1">
+                  <div class="card card1 remaining-card">
+                    <div class="card-body d-flex align-items-center">
+                      <div class="card-icon text-warning">
+                        <i class="bi bi-hourglass-split"></i>
+                      </div>
+                      <div class="card-text">
+                        <h6>Remaining Amount</h6>
+                        <h4 id="remainingAmount">₹0</h4>
+                        <small>Yet to be paid</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3 px-1">
+                  <div class="card card1 due-card">
+                    <div class="card-body d-flex align-items-center">
+                      <div class="card-icon text-danger">
+                        <i class="bi bi-calendar-event"></i>
+                      </div>
+                      <div class="card-text">
+                        <h6>Next Due Date</h6>
+                        <h4 id="nextDueDate">-</h4>
+                        <small>Upcoming EMI</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <nav class="navbar navbar-expand-sm">
+                  <div class="loan1">
+                    <span class="span1"><b>Payment History</b></span>
+                  </div>
+
+                  <select
+                    class="form-control ml-2"
+                    style="width: 150px"
+                    id="paymentFilter"
+                    onchange="filterPayments()"
+                  >
+                    <option value="ALL">All Payments</option>
+                    <option value="SUCCESS">Paid</option>
+                    <option value="PENDING">Pending</option>
+                    <option value="FAILED">Failed</option>
+                  </select>
+                  <!-- Download -->
+                  <div class="d-flex btn2">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      onclick="downloadPayments()"
+                    >
+                      Download<i class="bi bi-download"></i>
+                    </button>
+                  </div>
+                </nav>
+
+                <div class="table-responsive">
+                  <table class="table table-hover mb-0">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Payment ID</th>
+                        <th>Loan Type</th>
+                        <th>EMI Amount</th>
+                        <th>Paid On</th>
+                        <th>Payment Mode</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="paymentTableBody">
+                      <tr>
+                        <td colspan="7" class="text-center">
+                          Loading payment history...
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <!-- Logo & Description -->
+          <div class="col-md-3">
+            <h5><i class="bi bi-bank2"></i> LoanMate</h5>
+            <p>
+              Your trusted partner for personal, home,<br />
+              education and business loans.
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="col-md-2">
+            <h6>Quick Links</h6>
+            <a href="#">Home</a>
+            <a href="#">Loans</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+          </div>
+
+          <!-- Support -->
+          <div class="col-md-2">
+            <h6>Support</h6>
+            <a href="#">FAQs</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Help Center</a>
+          </div>
+
+          <!-- Contact -->
+          <div class="col-md-3">
+            <h6>Contact Us</h6>
+            <p>
+              <i class="bi bi-envelope-fill contact"></i> support@loanmate.com
+            </p>
+            <p><i class="bi bi-telephone-fill contact"></i> +91 98765 43210</p>
+            <p>
+              <i class="bi bi-geo-alt-fill contact"></i> 123, Main Street,
+              Hyderabad, India
+            </p>
+          </div>
+
+          <!-- Social Media -->
+          <div class="col-md-2">
+            <h6>Follow Us</h6>
+
+            <a href="#" class="social">
+              <i class="bi bi-facebook"></i>
+            </a>
+
+            <a href="#" class="social">
+              <i class="bi bi-twitter"></i>
+            </a>
+
+            <a href="#" class="social">
+              <i class="bi bi-instagram"></i>
+            </a>
+
+            <a href="#" class="social">
+              <i class="bi bi-linkedin"></i>
+            </a>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="footer-bottom">
+          <span>© 2026 LoanMate. All rights reserved.</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function downloadPayments() {
+        let table = document.querySelector(".table-responsive table");
+
+        let rows = table.querySelectorAll("tr");
+
+        let csv = [];
+
+        rows.forEach(function (row) {
+          let columns = row.querySelectorAll("th, td");
+
+          let rowData = [];
+
+          columns.forEach(function (column) {
+            rowData.push('"' + column.innerText.trim() + '"');
+          });
+
+          csv.push(rowData.join(","));
+        });
+
+        let csvFile = new Blob([csv.join("\n")], {
+          type: "text/csv",
+        });
+
+        let downloadLink = document.createElement("a");
+
+        downloadLink.href = URL.createObjectURL(csvFile);
+        downloadLink.download = "PaymentHistory.csv";
+
+        downloadLink.click();
+
+        URL.revokeObjectURL(downloadLink.href);
+      }
+    </script>
+    <script>
+      const uid = localStorage.getItem("uid");
+
+      const savedImage = localStorage.getItem("profileImage_" + uid);
+
+      if (savedImage) {
+        document.getElementById("navbarProfileImage").src = savedImage;
+      }
+
+      async function loadCustomerName() {
+        if (!uid) return;
+
+        try {
+          const response = await fetch(`https://loanmate-backend.onrender.com/user/${uid}`);
+
+          const user = await response.json();
+
+          document.getElementById("navbarName").innerText =
+            user.uname || "Customer";
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      loadCustomerName();
+    </script>
+    <script>
+      let allPayments = [];
+
+      async function loadPayments() {
+        if (!uid) {
+          alert("Please login first");
+          window.location.href = "../login.html";
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            `https://loanmate-backend.onrender.com/payments/userID/${uid}`,
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to load payments");
+          }
+
+          allPayments = await response.json();
+
+          // Calculate summary
+          const total = allPayments.length;
+
+          const paid = allPayments
+            .filter((p) => p.paymentStatus === "SUCCESS")
+            .reduce((sum, p) => sum + Number(p.amount), 0);
+
+          const pending = allPayments.filter(
+            (p) => p.paymentStatus === "PENDING",
+          ).length;
+
+          const failed = allPayments.filter(
+            (p) => p.paymentStatus === "FAILED",
+          ).length;
+
+          document.getElementById("totalPayments").innerText = total;
+          document.getElementById("amountPaid").innerText =
+            "₹" + paid.toLocaleString("en-IN");
+
+          // Display remaining cards as counts for now
+          document.getElementById("remainingAmount").innerText = pending;
+          document.getElementById("nextDueDate").innerText = failed;
+
+          displayPayments(allPayments);
+        } catch (error) {
+          console.error(error);
+
+          document.getElementById("paymentTableBody").innerHTML = `
+                <tr>
+                    <td colspan="7" class="text-center text-danger">
+                        Unable to load payment history.
+                    </td>
+                </tr>
+            `;
+        }
+      }
+
+      function displayPayments(payments) {
+        const tableBody = document.getElementById("paymentTableBody");
+        tableBody.innerHTML = "";
+
+        if (payments.length === 0) {
+          tableBody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="text-center">
+                        No payment records found.
+                    </td>
+                </tr>
+            `;
+          return;
+        }
+
+        payments.forEach((payment) => {
+          let statusClass = "badge-secondary";
+
+          if (payment.paymentStatus === "SUCCESS") {
+            statusClass = "badge-success";
+          } else if (payment.paymentStatus === "PENDING") {
+            statusClass = "badge-warning";
+          } else if (payment.paymentStatus === "FAILED") {
+            statusClass = "badge-danger";
+          }
+
+          const row = `
+                <tr>
+                    <td>PAY${payment.paymentId}</td>
+                    <td>Loan #${payment.loanId}</td>
+                    <td>₹${Number(payment.amount).toLocaleString("en-IN")}</td>
+                    <td>${payment.paymentDate || "-"}</td>
+                    <td>${payment.transactionReference || "-"}</td>
+                    <td>
+                        <span class="badge ${statusClass}">
+                            ${payment.paymentStatus}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-primary btn-sm"
+                            onclick="viewPayment(${payment.paymentId})">
+                            View
+                        </button>
+                    </td>
+                </tr>
+            `;
+
+          tableBody.innerHTML += row;
+        });
+      }
+
+      function filterPayments() {
+        const status = document.getElementById("paymentFilter").value;
+
+        if (status === "ALL") {
+          displayPayments(allPayments);
+        } else {
+          const filtered = allPayments.filter(
+            (p) => p.paymentStatus === status,
+          );
+
+          displayPayments(filtered);
+        }
+      }
+
+      function viewPayment(paymentId) {
+        alert("Payment ID: " + paymentId);
+      }
+
+      window.addEventListener("DOMContentLoaded", loadPayments);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

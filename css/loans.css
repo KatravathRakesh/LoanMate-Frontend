@@ -1,0 +1,340 @@
+/* LoanMate Loans Page - same styling as Home, Login and Register */
+
+/* Page layout */
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
+.navbar {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.nav-link {
+  text-decoration: none;
+  color: #443f3f !important;
+}
+
+.nav-link:hover {
+  color: #0d6efd !important;
+  text-decoration: underline;
+  text-underline-offset: 14px;
+}
+.bi {
+  font-size: 20px;
+}
+
+.btn {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.btnl:hover {
+  background-color: #079deb;
+  border-color: #079deb;
+}
+
+.btnl:hover a {
+  color: #ffffff !important;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+
+.logo {
+    font-size: 18px;
+}
+
+.span1 {
+    position: absolute;
+    top: 5px;
+    left: 45px;
+    font-size: 15px;
+}
+
+/* Banner */
+.loan-banner {
+    position: relative;
+    min-height: 240px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 30px 40px;
+    background-color: #e8f2ff;
+    background-image: linear-gradient(90deg, #e8f2ff, #d5f4dc);
+    box-sizing: border-box;
+}
+
+.banner-text {
+    max-width: 560px;
+}
+
+.banner-text p {
+    color: #4d4848;
+    font-size: 13px;
+}
+
+.banner-text h2 {
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.banner-text h2 span {
+    color: #0564d1;
+}
+
+.banner-text .btn {
+    padding: 8px 18px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+/* Loan section */
+.loan-section {
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.loan-section h3,
+.benefits-section h3 {
+    font-size: 22px;
+    color: #243447;
+}
+
+.loan-section > p {
+    color: #4d4848;
+    font-size: 12px;
+}
+
+/* Loan cards */
+.loan-card {
+    height: 100%;
+    border: 1px solid #dce3ea;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+.loan-card .loan-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 15px 0;
+    border-radius: 8px;
+}
+
+.loan-icon i {
+    font-size: 22px;
+}
+
+.loan-icon.blue {
+    color: #0d6efd;
+    background-color: #e8f2ff;
+}
+
+.loan-icon.green {
+    color: #28a745;
+    background-color: #d5f4dc;
+}
+
+.loan-icon.yellow {
+    color: #e0a800;
+    background-color: #fff0c2;
+}
+
+.loan-icon.pink {
+    color: #e83e8c;
+    background-color: #f2c6e5;
+}
+
+/* Override the general home page card-body sizing for these cards */
+.loan-card .card-body {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 15px;
+}
+
+.loan-card h5 {
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.loan-card p {
+    margin-bottom: 10px;
+    color: #4d4848;
+    font-size: 11px;
+}
+
+.loan-card ul {
+    min-height: 65px;
+    padding-left: 18px;
+    margin-bottom: 12px;
+}
+
+.loan-card li {
+    margin-bottom: 4px;
+    color: #4d4848;
+    font-size: 10px;
+}
+
+.loan-card .btn {
+    padding: 6px 10px;
+    font-size: 11px;
+}
+
+/* Benefits section */
+.benefits-section {
+    padding-top: 20px;
+    padding-bottom: 35px;
+}
+
+.benefit-icon {
+    color: #0d6efd;
+    font-size: 30px;
+}
+
+.benefits-section h5 {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.benefits-section p {
+    color: #4d4848;
+    font-size: 10px;
+}
+
+/* Footer - same as home.css with bottom positioning fix */
+.footer {
+    width: 100%;
+    margin-top: auto;
+    flex-shrink: 0;
+    background-color: #102a43;
+    color: #ffffff;
+    padding: 20px 0 8px;
+    border-top: 1px solid #0d6efd;
+}
+
+.footer h5 {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.footer h5 i {
+    font-size: 20px;
+}
+
+.footer h6 {
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.footer p {
+    color: #d6dee8;
+    font-size: 9px;
+    margin-bottom: 2px;
+}
+
+.footer a {
+    display: block;
+    color: #d6dee8;
+    font-size: 9px;
+    text-decoration: none;
+    margin-bottom: 2px;
+}
+
+.footer a:hover {
+    color: #ffffff;
+}
+
+.footer hr {
+    border-color: #40566b;
+    margin: 10px 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    color: #d6dee8;
+    font-size: 12px;
+}
+
+.contact {
+    font-size: 10px;
+}
+
+.social {
+    display: inline-block !important;
+    background-color: #34495e;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    padding-top: 1px;
+    border-radius: 7px;
+    margin-right: 2px;
+}
+
+.social i {
+    font-size: 10px;
+}
+
+/* Responsive layout */
+@media (max-width: 767px) {
+    .navbar .logo {
+        width: auto;
+    }
+
+    .navbar .menu {
+        width: 100%;
+    }
+
+    .navbar .d-flex {
+        margin: 8px 0;
+    }
+
+    .loan-banner {
+        min-height: 200px;
+        padding: 25px 20px;
+    }
+
+    .banner-text h2 {
+        font-size: 23px;
+    }
+
+    .loan-section {
+        padding-top: 22px;
+    }
+
+    .loan-card {
+        margin-bottom: 10px;
+    }
+
+    .loan-card ul {
+        min-height: auto;
+    }
+
+    .benefits-section {
+        padding-bottom: 25px;
+    }
+
+    .footer .row > div {
+        margin-bottom: 12px;
+    }
+}

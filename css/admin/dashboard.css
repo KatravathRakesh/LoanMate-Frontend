@@ -1,0 +1,427 @@
+/* Admin Dashboard page - LoanMate */
+
+/* Page reset */
+html,
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+     min-height: 100%;
+}
+
+body {
+    background: #f6fefe;
+    color: #243447;
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    padding: 2px 16px;
+    min-height: 42px;
+    background: #ffffff;
+}
+
+.logo {
+    font-size: 18px;
+}
+
+.span1 {
+    font-size: 15px;
+}
+
+.nav1 {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #d0eef6;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #d0eef6;
+    display: inline-block;
+}
+
+/* Sidebar */
+.dash {
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.sidebar {
+    height: auto;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    background-color: #dbedf7;
+}
+
+.sidebar a {
+    display: block;
+    padding: 6px 8px;
+    margin-top: 20px;
+    color: #4d4848;
+    text-decoration: none;
+}
+
+.sidebar a i {
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+.sidebar a:hover {
+    border-radius: 5px;
+    color: #0d6efd !important;
+    background-color: #e7f9fe;
+}
+
+.sidebar a.active {
+    color: #ffffff !important;
+    background-color: #0d6efd;
+}
+
+/* Main content and banner */
+.admin-layout {
+    align-items: stretch;
+    margin-bottom: 0;
+}
+
+.content {
+    position: relative;
+    background-color: #f6fefe;
+    padding-bottom: 15px;
+}
+
+.page-banner {
+    position: relative;
+    height: 120px;
+    margin-top: 5px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.page-banner img {
+    width: 100%;
+    height: 120px;
+    margin-top: 0;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.welcome-text {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+}
+
+.welcome-text h2 {
+    margin-bottom: 5px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.welcome-text p {
+    color: #4d4848;
+    margin-bottom: 0;
+}
+
+.bi {
+    font-size: 20px;
+}
+
+/* Bootstrap row spacing */
+.row {
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 11px;
+}
+
+/* Dashboard statistic cards */
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 110px;
+    height: auto;
+    padding: 15px;
+    border-radius: 9px;
+    border: 1px solid #dce3ea;
+    margin-bottom: 10px;
+}
+
+.stat-card > i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 9px;
+    font-size: 25px;
+    flex-shrink: 0;
+}
+
+.stat-card h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 3px 0;
+}
+
+.stat-card small {
+    font-weight: 600;
+}
+
+.stat-card span {
+    color: #667788;
+    font-size: 11px;
+}
+
+.blue {
+    background: #e8f5ff;
+}
+
+.blue > i {
+    background: #cceaff;
+    color: #087bdb;
+}
+
+.green {
+    background: #e8fbf1;
+}
+
+.green > i {
+    background: #c8f3dc;
+    color: #159957;
+}
+
+.yellow {
+    background: #fff8df;
+}
+
+.yellow > i {
+    background: #ffedb2;
+    color: #bd8500;
+}
+
+.purple {
+    background: #f2edff;
+}
+
+.purple > i {
+    background: #e0d5ff;
+    color: #6841c6;
+}
+
+/* Common dashboard cards */
+.admin-card {
+    height: auto;
+    min-height: 0;
+    border: 1px solid #dce3ea;
+    border-radius: 9px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+    margin-bottom: 15px;
+}
+
+.admin-card .card-body {
+    padding: 18px;
+}
+
+.admin-card h5 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* Loan applications chart */
+.bars {
+    height: 210px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 14px;
+    padding: 15px 10px 25px;
+    border-bottom: 1px solid #b9c8d8;
+}
+
+.bars span {
+    width: 11%;
+    min-height: 25px;
+    background: #1682ef;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 5px;
+    font-size: 11px;
+}
+
+/* Loan status overview */
+.status-list {
+    padding: 20px 10px;
+}
+
+.status-list p {
+    padding: 10px;
+    border-bottom: 1px solid #e5edf5;
+    margin: 0;
+}
+
+.status-list p:last-child {
+    border-bottom: 0;
+}
+
+.status-list b {
+    float: right;
+}
+
+/* Tables */
+.table {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background: #edf4fb;
+    border-top: 0;
+    white-space: nowrap;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+    padding: 10px 8px;
+}
+
+.table .btn {
+    font-size: 11px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-fluid {
+    flex: 1 0 auto;
+}
+
+/* Footer */
+.footer {
+    position: relative;
+    clear: both;
+    width: 100%;
+    background-color: #102a43;
+    color: #ffffff;
+    padding: 20px 0 8px;
+    margin-top: 0;
+    flex-shrink: 0;
+}
+
+.footer h5 {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.footer h5 i {
+    font-size: 20px;
+}
+
+.footer h6 {
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.footer p {
+    color: #d6dee8;
+    font-size: 9px;
+    margin-bottom: 2px;
+}
+
+.footer a {
+    display: block;
+    color: #d6dee8;
+    font-size: 9px;
+    text-decoration: none;
+    margin-bottom: 2px;
+}
+
+.footer a:hover {
+    color: #ffffff;
+}
+
+.footer hr {
+    border-color: #40566b;
+    margin: 10px 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    color: #d6dee8;
+    font-size: 12px;
+}
+
+.social {
+    display: inline-block !important;
+    background-color: #34495e;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    padding-top: 1px;
+    border-radius: 7px;
+    margin-right: 2px;
+}
+
+.social i {
+    font-size: 10px;
+}
+
+/* Responsive layout */
+@media (max-width: 767px) {
+    .sidebar {
+        height: auto;
+        min-height: auto;
+        margin-bottom: 12px;
+    }
+
+    .sidebar a {
+        display: inline-block;
+        margin: 4px 2px;
+    }
+
+    .content {
+        width: 100%;
+    }
+
+    .welcome-text {
+        top: 20px;
+        left: 15px;
+    }
+
+    .welcome-text h2 {
+        font-size: 21px;
+    }
+
+    .welcome-text p {
+        font-size: 12px;
+    }
+
+    .stat-card {
+        margin-bottom: 10px;
+    }
+
+    .bars {
+        gap: 6px;
+    }
+
+    .admin-card {
+        margin-bottom: 15px;
+    }
+}
