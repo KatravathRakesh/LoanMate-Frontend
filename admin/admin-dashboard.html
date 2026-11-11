@@ -223,6 +223,19 @@
     <script>
       const API_URL = "https://loanmate-backend.onrender.com";
 
+      const token = localStorage.getItem("token");
+      const role = localStorage.getItem("role");
+
+      const authHeaders = {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      };
+
+      if (!token || role !== "ADMIN") {
+        alert("Please login as Admin!");
+        window.location.href = "../login.html";
+      }
+
       // =================================
       // ADMIN NAVBAR PROFILE
       // =================================
@@ -249,9 +262,15 @@
         try {
           const [customerResponse, loanResponse, applicationResponse] =
             await Promise.all([
-              fetch(`${API_URL}/user/all`),
-              fetch(`${API_URL}/loans/getAllLoan`),
-              fetch(`${API_URL}/loan/findAllLoan`),
+              fetch(`${API_URL}/user/all`, {
+                headers: authHeaders,
+              }),
+              fetch(`${API_URL}/loans/getAllLoan`, {
+                headers: authHeaders,
+              }),
+              fetch(`${API_URL}/loan/findAllLoan`, {
+                headers: authHeaders,
+              }),
             ]);
 
           if (
@@ -325,7 +344,9 @@
           let customerName = "Unknown";
 
           try {
-            const response = await fetch(`${API_URL}/user/${app.userId}`);
+            const response = await fetch(`${API_URL}/user/${app.userId}`, {
+              headers: authHeaders,
+            });
 
             if (response.ok) {
               const customer = await response.json();
@@ -354,7 +375,9 @@
         const tbody = document.getElementById("recentPaymentsBody");
 
         try {
-          const response = await fetch(`${API_URL}/payments/GetAllPayments`);
+          const response = await fetch(`${API_URL}/payments/GetAllPayments`, {
+            headers: authHeaders,
+          });
 
           if (!response.ok) {
             throw new Error("Unable to fetch payments");
@@ -388,6 +411,9 @@
             try {
               const userResponse = await fetch(
                 `${API_URL}/user/${payment.userId}`,
+                {
+                  headers: authHeaders,
+                },
               );
 
               if (userResponse.ok) {
