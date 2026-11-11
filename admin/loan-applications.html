@@ -161,12 +161,28 @@
     <script>
       const API_URL = "https://loanmate-backend.onrender.com";
 
+      const token = localStorage.getItem("token");
+      const role = localStorage.getItem("role");
+
+      const authHeaders = {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      };
+
+      if (!token || role !== "ADMIN") {
+        alert("Please login as Admin!");
+        window.location.href = "../login.html";
+      }
+
       // Load all loan applications
       async function loadApplications() {
         const tbody = document.getElementById("loanApplicationTableBody");
 
         try {
-          const response = await fetch(`${API_URL}/loan/findAllLoan`);
+          const response = await fetch(`${API_URL}/loan/findAllLoan`, {
+            method: "GET",
+            headers: authHeaders,
+          });
 
           if (!response.ok) {
             throw new Error("Unable to fetch loan applications");
@@ -191,7 +207,13 @@
 
             // Fetch customer details
             try {
-              const userResponse = await fetch(`${API_URL}/user/${app.userId}`);
+              const userResponse = await fetch(
+                `${API_URL}/user/${app.userId}`,
+                {
+                  method: "GET",
+                  headers: authHeaders,
+                },
+              );
 
               if (userResponse.ok) {
                 const user = await userResponse.json();
@@ -271,9 +293,7 @@
             `${API_URL}/loan/updateById/${applicationId}`,
             {
               method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
+              headers: authHeaders,
               body: JSON.stringify({
                 status: status,
               }),
@@ -287,8 +307,7 @@
 
           alert(`Application ${status.toLowerCase()} successfully!`);
 
-          // Reload applications
-          loadApplications();
+          await loadApplications();
         } catch (error) {
           console.error("Update error:", error);
           alert("Unable to update application: " + error.message);
