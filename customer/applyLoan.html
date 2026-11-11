@@ -381,6 +381,7 @@
         .getElementById("loanForm")
         .addEventListener("submit", async function (event) {
           event.preventDefault();
+          const token = localStorage.getItem("token");
 
           if (!userId) {
             alert("Please login first!");
