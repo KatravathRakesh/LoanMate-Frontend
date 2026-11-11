@@ -319,6 +319,19 @@
 
     <script>
       const uid = localStorage.getItem("uid");
+      const token = localStorage.getItem("token");
+
+      const API_URL = "https://loanmate-backend.onrender.com";
+
+      const authHeaders = {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      };
+
+      if (!uid || !token) {
+        alert("Please login again.");
+        window.location.href = "../login.html";
+      }
 
       const savedImage = localStorage.getItem("profileImage_" + uid);
 
@@ -330,7 +343,14 @@
         if (!uid) return;
 
         try {
-          const response = await fetch(`https://loanmate-backend.onrender.com/user/${uid}`);
+          const response = await fetch(`${API_URL}/user/${uid}`, {
+            method: "GET",
+            headers: authHeaders,
+          });
+
+          if (!response.ok) {
+            throw new Error("Unable to load customer details");
+          }
 
           const user = await response.json();
 
@@ -352,9 +372,10 @@
         if (!uid) return;
 
         try {
-          const response = await fetch(
-            `https://loanmate-backend.onrender.com/loans/user/${uid}/active`,
-          );
+          const response = await fetch(`${API_URL}/loans/user/${uid}/active`, {
+            method: "GET",
+            headers: authHeaders,
+          });
 
           if (!response.ok) throw new Error("Unable to load loans");
 
@@ -380,9 +401,10 @@
         if (!loanId) return;
 
         try {
-          const response = await fetch(
-            `https://loanmate-backend.onrender.com/loans/getLoan/${loanId}`,
-          );
+          const response = await fetch(`${API_URL}/loans/getLoan/${loanId}`, {
+            method: "GET",
+            headers: authHeaders,
+          });
 
           if (!response.ok) throw new Error("Loan not found");
 
@@ -446,8 +468,6 @@
           userId: Number(uid),
           amount: amount,
           paymentDate: paymentDate,
-          paymentStatus: "SUCCESS",
-          transactionReference: "TXN" + Date.now(),
           paymentMode: paymentMethod.value,
         };
 
@@ -468,7 +488,6 @@
         }
 
         function displayNotifications() {
-          
           const notificationItems =
             document.getElementById("notificationItems");
 
@@ -499,15 +518,12 @@
         }
 
         try {
-          addNotification("Your payment of ₹" + amount + " was successful!");
           // Step 1: Submit payment
           const paymentResponse = await fetch(
-            "https://loanmate-backend.onrender.com/payments/addPayments",
+            `${API_URL}/payments/addPayments`,
             {
               method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
+              headers: authHeaders,
               body: JSON.stringify(paymentData),
             },
           );
@@ -516,10 +532,15 @@
             const errorMessage = await paymentResponse.text();
             throw new Error(errorMessage);
           }
+          addNotification("Your payment of ₹" + amount + " was successful!");
 
           // Step 2: Fetch updated loan details
           const loanResponse = await fetch(
-            `https://loanmate-backend.onrender.com/loans/getLoan/${selectedLoan.loanId}`,
+            `${API_URL}/loans/getLoan/${selectedLoan.loanId}`,
+            {
+              method: "GET",
+              headers: authHeaders,
+            },
           );
 
           if (!loanResponse.ok) {
