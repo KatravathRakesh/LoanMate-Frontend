@@ -167,6 +167,7 @@
             id="password"
             class="password"
           />
+         
         </div>
       </div>
 
@@ -176,7 +177,10 @@
           <label for="remember">Remember Me</label>
         </div>
 
-        <a href="#" class="forgot-password"> Forgot Password? </a>
+        
+         <div class="forgot-password mt-2">
+            <a href="./forgot-password.html"> Forgot Password? </a>
+          </div>
       </div>
 
       <div class="form-row mt-2">
@@ -281,16 +285,19 @@
           }
 
           try {
-            const response = await fetch("https://loanmate-backend.onrender.com/user/login", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
+            const response = await fetch(
+              "https://loanmate-backend.onrender.com/user/login",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  email: email,
+                  password: password,
+                }),
               },
-              body: JSON.stringify({
-                email: email,
-                password: password,
-              }),
-            });
+            );
 
             const data = await response.json();
             console.log("LOGIN RESPONSE:", data);
@@ -299,27 +306,27 @@
             console.log("Address:", data.address);
 
             if (response.ok) {
-              alert("Login Successful! Welcome " + data.uname);
+              const role = data.role?.toUpperCase();
 
-              // Store customer details
+              if (role !== "ADMIN" && role !== "CUSTOMER") {
+                alert("Invalid user role");
+                return;
+              }
+
               localStorage.setItem("uid", data.uid);
               localStorage.setItem("uname", data.uname);
               localStorage.setItem("email", data.email);
-              localStorage.setItem("role", data.role);
+              localStorage.setItem("role", role);
               localStorage.setItem("mobile", data.mobile || "");
               localStorage.setItem("address", data.address || "");
 
-              // Redirect based on role
-              if (data.role?.toUpperCase() === "ADMIN") {
+              if (role === "ADMIN") {
                 localStorage.setItem("adminName", data.uname);
 
                 window.location.href = "./admin/admin-dashboard.html";
-              } else if (data.role?.toUpperCase() === "CUSTOMER") {
-                window.location.href = "./customer/dashboard.html";
               } else {
-                alert("Invalid user role");
+                window.location.href = "./customer/dashboard.html";
               }
-
             } else {
               alert(data.message || "Invalid email or password");
             }

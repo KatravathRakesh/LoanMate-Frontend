@@ -240,16 +240,8 @@
             </div>
           </div>
 
-          <div class="form-row mt-2">
-            <div class="field">
-              <label for="role"><b>Register As</b></label>
-              <select id="role" class="form-control" required>
-                <option value="">Select Role</option>
-                <option value="CUSTOMER">Customer</option>
-                <option value="ADMIN">Admin</option>
-              </select>
-            </div>
-          </div>
+         
+
           <div class="form-row mt-2">
             <button type="button" class="btnf1 bg-primary" id="btnf1">
               Register
@@ -352,7 +344,7 @@
           const password = document.getElementById("password").value;
           const confirmPassword = document.getElementById("password1").value;
           const address = document.getElementById("address").value.trim();
-          const role = document.getElementById("role").value;
+          
 
           if (
             !uname ||
@@ -377,7 +369,7 @@
             password: password,
             mobile: mobile,
             address: address,
-            role: document.getElementById("role").value,
+            
           };
 
           try {

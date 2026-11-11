@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Verify OTP - LoanMate</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <style>
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #e8f3ff, #f5f9ff);
+        font-family: Arial, sans-serif;
+      }
+
+      .otp-card {
+        max-width: 430px;
+        width: 100%;
+        padding: 35px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        color: #079deb;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .otp-icon {
+        width: 65px;
+        height: 65px;
+        background: #e5f3ff;
+        color: #079deb;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+      }
+
+      .form-control {
+        height: 50px;
+        text-align: center;
+        font-size: 22px;
+        letter-spacing: 8px;
+      }
+
+      .btn {
+        height: 48px;
+        font-weight: 600;
+      }
+
+      @media (max-width: 480px) {
+        .otp-card {
+          padding: 25px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="otp-card mx-auto">
+        <div class="logo text-center mb-4">
+          <i class="bi bi-bank2"></i> LoanMate
+        </div>
+
+        <div class="otp-icon mx-auto mb-3">
+          <i class="bi bi-envelope-check-fill"></i>
+        </div>
+
+        <h3 class="text-center fw-bold">Verify OTP</h3>
+
+        <p class="text-center text-muted mb-4">
+          Enter the 6-digit OTP sent to your registered email.
+        </p>
+
+        <form id="otpForm">
+          <div class="mb-3">
+            <label for="otp" class="form-label fw-semibold"> Enter OTP </label>
+
+            <input
+              type="text"
+              id="otp"
+              class="form-control"
+              placeholder="000000"
+              maxlength="6"
+              pattern="[0-9]{6}"
+              inputmode="numeric"
+              autocomplete="one-time-code"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">
+            Verify OTP
+          </button>
+        </form>
+
+        <div class="text-center mt-4">
+          <a href="./forgot-password.html" class="text-decoration-none">
+            Back
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("otpForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const email = sessionStorage.getItem("resetEmail");
+          const otp = document.getElementById("otp").value.trim();
+
+          if (!email) {
+            alert("Please enter your email again.");
+            window.location.href = "./forgot-password.html";
+            return;
+          }
+
+          if (!/^\d{6}$/.test(otp)) {
+            alert("Please enter a valid 6-digit OTP.");
+            return;
+          }
+
+          try {
+            const response = await fetch(
+              "https://loanmate-backend.onrender.com/user/verify-otp",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, otp }),
+              },
+            );
+
+            const result = await response.json();
+
+            if (response.ok) {
+              sessionStorage.setItem("resetToken", result.resetToken);
+
+              alert("OTP verified successfully!");
+
+              window.location.href = "./reset-password.html";
+            } else {
+              alert(result.message);
+            }
+          } catch (error) {
+            console.error(error);
+            alert("Unable to connect to server.");
+          }
+        });
+    </script>
+  </body>
+</html>
