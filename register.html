@@ -240,8 +240,6 @@
             </div>
           </div>
 
-         
-
           <div class="form-row mt-2">
             <button type="button" class="btnf1 bg-primary" id="btnf1">
               Register
@@ -344,7 +342,6 @@
           const password = document.getElementById("password").value;
           const confirmPassword = document.getElementById("password1").value;
           const address = document.getElementById("address").value.trim();
-          
 
           if (
             !uname ||
@@ -369,7 +366,6 @@
             password: password,
             mobile: mobile,
             address: address,
-            
           };
 
           try {
@@ -390,11 +386,20 @@
               alert("Registration successful!");
               window.location.href = "./login.html";
             } else {
-              alert("Registration failed: " + result);
+              let message = result;
+
+              try {
+                const errorData = JSON.parse(result);
+                message = errorData.message || result;
+              } catch (e) {
+                // Keep original response
+              }
+
+              alert("Registration failed: " + message);
             }
           } catch (error) {
             console.error(error);
-            alert("Unable to connect to the server. Please check Spring Boot.");
+            alert("Unable to connect to the server. Please try again.");
           }
         });
     </script>

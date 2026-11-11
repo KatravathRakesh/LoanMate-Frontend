@@ -167,7 +167,6 @@
             id="password"
             class="password"
           />
-         
         </div>
       </div>
 
@@ -177,10 +176,9 @@
           <label for="remember">Remember Me</label>
         </div>
 
-        
-         <div class="forgot-password mt-2">
-            <a href="./forgot-password.html"> Forgot Password? </a>
-          </div>
+        <div class="forgot-password mt-2">
+          <a href="./forgot-password.html"> Forgot Password? </a>
+        </div>
       </div>
 
       <div class="form-row mt-2">
@@ -306,23 +304,30 @@
             console.log("Address:", data.address);
 
             if (response.ok) {
-              const role = data.role?.toUpperCase();
+              const user = data.user || data;
+              const token = data.token || data.jwtToken;
+
+              if (!token) {
+                alert("Login successful, but JWT token is missing.");
+                return;
+              }
+
+              const role = user.role?.toUpperCase();
 
               if (role !== "ADMIN" && role !== "CUSTOMER") {
                 alert("Invalid user role");
                 return;
               }
 
-              localStorage.setItem("uid", data.uid);
-              localStorage.setItem("uname", data.uname);
-              localStorage.setItem("email", data.email);
+              localStorage.setItem("token", token);
+              localStorage.setItem("uid", user.uid);
+              localStorage.setItem("uname", user.uname);
+              localStorage.setItem("email", user.email);
               localStorage.setItem("role", role);
-              localStorage.setItem("mobile", data.mobile || "");
-              localStorage.setItem("address", data.address || "");
+              localStorage.setItem("mobile", user.mobile || "");
+              localStorage.setItem("address", user.address || "");
 
               if (role === "ADMIN") {
-                localStorage.setItem("adminName", data.uname);
-
                 window.location.href = "./admin/admin-dashboard.html";
               } else {
                 window.location.href = "./customer/dashboard.html";
@@ -332,7 +337,7 @@
             }
           } catch (error) {
             console.error("Login Error:", error);
-            alert("Unable to connect to the server. Please check Spring Boot.");
+            alert("Unable to connect to the server. Please try again.");
           }
         });
     </script>
