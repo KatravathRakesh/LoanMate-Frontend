@@ -23,8 +23,6 @@
       </div>
 
       <div class="d-flex align-items-center ml-auto">
-        
-
         <img
           src="../images/profile.png"
           id="navbarProfileImage"
@@ -462,7 +460,16 @@
         // Load customer profile from backend
         async function loadProfile() {
           try {
-            const response = await fetch(`https://loanmate-backend.onrender.com/user/${uid}`);
+            const token = localStorage.getItem("token");
+
+            const response = await fetch(
+              `https://loanmate-backend.onrender.com/user/${uid}`,
+              {
+                headers: {
+                  Authorization: "Bearer " + token,
+                },
+              },
+            );
 
             if (!response.ok) {
               throw new Error("Unable to load profile");
@@ -520,6 +527,7 @@
                   method: "PUT",
                   headers: {
                     "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
                   },
                   body: JSON.stringify(userData),
                 },

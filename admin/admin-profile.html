@@ -223,7 +223,14 @@
         // Load admin details from MySQL
         async function loadAdminProfile() {
           try {
-            const response = await fetch(`https://loanmate-backend.onrender.com/user/${uid}`);
+            const response = await fetch(
+              `https://loanmate-backend.onrender.com/user/${uid}`,
+              {
+                headers: {
+                  Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+              },
+            );
 
             if (!response.ok) {
               throw new Error("Unable to load admin profile");
@@ -311,6 +318,7 @@
                   method: "PUT",
                   headers: {
                     "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
                   },
                   body: JSON.stringify(userData),
                 },
