@@ -240,19 +240,48 @@
       // ADMIN NAVBAR PROFILE
       // =================================
 
-      const savedImage = localStorage.getItem("adminProfileImage");
-      const savedName =
-        localStorage.getItem("adminName") || localStorage.getItem("uname");
+      // =================================
+      // LOAD ADMIN NAVBAR PROFILE
+      // =================================
 
-      if (savedImage) {
-        document.getElementById("navbarProfileImage").src = savedImage;
+      async function loadAdminNavbarProfile() {
+        const uid = localStorage.getItem("uid");
+        const token = localStorage.getItem("token");
+
+        const navbarImage = document.getElementById("navbarProfileImage");
+
+        const navbarName = document.getElementById("navbarAdminName");
+
+        if (!uid || !token) {
+          console.error("Admin login details not found");
+          return;
+        }
+
+        try {
+          const response = await fetch(`${API_URL}/user/${uid}`, {
+            method: "GET",
+            headers: authHeaders,
+          });
+
+          if (!response.ok) {
+            throw new Error("Unable to load admin profile");
+          }
+
+          const admin = await response.json();
+
+          if (navbarName) {
+            navbarName.innerText = admin.uname || "Admin";
+          }
+
+          if (navbarImage && admin.profileImage) {
+            navbarImage.src = admin.profileImage;
+          }
+        } catch (error) {
+          console.error("Admin navbar profile error:", error);
+        }
       }
 
-      const navbarName = document.getElementById("navbarAdminName");
-
-      if (savedName && navbarName) {
-        navbarName.innerText = savedName;
-      }
+      loadAdminNavbarProfile();
 
       // =================================
       // LOAD DASHBOARD DATA
