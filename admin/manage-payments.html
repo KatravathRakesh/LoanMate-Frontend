@@ -162,6 +162,13 @@
     <script>
       const API_URL = "https://loanmate-backend.onrender.com";
 
+      const token = localStorage.getItem("token");
+
+      const authHeaders = {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      };
+
       // =================================
       // ADMIN NAVBAR PROFILE
       // =================================
@@ -186,7 +193,9 @@
 
       async function loadPaymentSummary() {
         try {
-          const response = await fetch(`${API_URL}/payments/summary`);
+          const response = await fetch(`${API_URL}/payments/summary`, {
+            headers: authHeaders,
+          });
 
           if (!response.ok) {
             throw new Error("Unable to load payment summary");
@@ -215,7 +224,9 @@
         const tbody = document.getElementById("paymentTableBody");
 
         try {
-          const response = await fetch(`${API_URL}/payments/GetAllPayments`);
+          const response = await fetch(`${API_URL}/payments/GetAllPayments`, {
+            headers: authHeaders,
+          });
 
           if (!response.ok) {
             throw new Error("Unable to fetch payments");
@@ -247,6 +258,9 @@
             try {
               const userResponse = await fetch(
                 `${API_URL}/user/${payment.userId}`,
+                {
+                  headers: authHeaders,
+                },
               );
 
               if (userResponse.ok) {
@@ -337,6 +351,9 @@
         try {
           const response = await fetch(
             `${API_URL}/payments/findPayById/${paymentId}`,
+            {
+              headers: authHeaders,
+            },
           );
 
           if (!response.ok) {
@@ -347,7 +364,12 @@
 
           let customerName = "Unknown";
 
-          const userResponse = await fetch(`${API_URL}/user/${payment.userId}`);
+          const userResponse = await fetch(
+            `${API_URL}/user/${payment.userId}`,
+            {
+              headers: authHeaders,
+            },
+          );
 
           if (userResponse.ok) {
             const user = await userResponse.json();
