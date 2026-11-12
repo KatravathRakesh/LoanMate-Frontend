@@ -419,7 +419,7 @@
           });
         }
 
-        // Upload image
+        // Upload image and save to backend
         profileUpload.addEventListener("change", async function () {
           const file = this.files[0];
 
@@ -433,15 +433,39 @@
           try {
             const compressedImage = await compressImage(file);
 
-            localStorage.setItem(imageKey, compressedImage);
+            const token = localStorage.getItem("token");
 
-            profilePreview.src = compressedImage;
-            navbarProfileImage.src = compressedImage;
+            const response = await fetch(
+              `https://loanmate-backend.onrender.com/user/${userId}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + token,
+                },
+                body: JSON.stringify({
+                  profileImage: compressedImage,
+                }),
+              },
+            );
+
+            if (!response.ok) {
+              throw new Error(await response.text());
+            }
+
+            const updatedUser = await response.json();
+
+            // Update local browser image
+            localStorage.setItem(imageKey, updatedUser.profileImage);
+
+            // Update both profile images
+            profilePreview.src = updatedUser.profileImage;
+            navbarProfileImage.src = updatedUser.profileImage;
 
             alert("Profile picture saved successfully!");
           } catch (error) {
             console.error("Image saving error:", error);
-            alert("Unable to save image. Please choose a smaller image.");
+            alert("Unable to save profile picture: " + error.message);
           }
         });
       }
