@@ -322,12 +322,22 @@
                         </td>
 
                         <td>
-                            <button
-                                class="btn btn-outline-primary btn-sm"
-                                onclick="viewReceipt(${payment.paymentId})">
-                                Receipt
-                            </button>
-                        </td>
+    ${
+      payment.paymentStatus === "PENDING"
+        ? `<button
+             class="btn btn-success btn-sm"
+             onclick="approvePayment(${payment.paymentId})">
+             Approve
+           </button>`
+        : ""
+    }
+
+    <button
+        class="btn btn-outline-primary btn-sm"
+        onclick="viewReceipt(${payment.paymentId})">
+        Receipt
+    </button>
+</td>
                     </tr>
                 `;
           }
@@ -343,6 +353,43 @@
         }
       }
 
+      // =================================
+      // APPROVE PAYMENT
+      // =================================
+
+      async function approvePayment(paymentId) {
+        const confirmApproval = confirm(
+          "Are you sure you want to approve this payment?",
+        );
+
+        if (!confirmApproval) {
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            `${API_URL}/payments/approve/${paymentId}`,
+            {
+              method: "POST",
+              headers: authHeaders,
+            },
+          );
+
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.message || "Payment approval failed");
+          }
+
+          alert("Payment approved successfully!");
+
+          await loadPaymentSummary();
+          await loadPayments();
+        } catch (error) {
+          console.error("Approval error:", error);
+          alert(error.message);
+        }
+      }
       // =================================
       // VIEW PAYMENT RECEIPT
       // =================================
