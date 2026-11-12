@@ -216,6 +216,13 @@
     <script>
       const API_URL = "https://loanmate-backend.onrender.com";
 
+      const token = localStorage.getItem("token");
+
+      const authHeaders = {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      };
+
       // Load admin navbar information
       const savedImage = localStorage.getItem("adminProfileImage");
       const savedName =
@@ -234,7 +241,9 @@
         const tbody = document.getElementById("customerTableBody");
 
         try {
-          const response = await fetch(`${API_URL}/user/all`);
+          const response = await fetch(`${API_URL}/user/all`, {
+            headers: authHeaders,
+          });
 
           if (!response.ok) {
             throw new Error("Unable to fetch customers");
@@ -295,7 +304,9 @@
       // View customer information
       async function viewCustomer(uid) {
         try {
-          const response = await fetch(`${API_URL}/user/${uid}`);
+          const response = await fetch(`${API_URL}/user/${uid}`, {
+            headers: authHeaders,
+          });
 
           if (!response.ok) {
             throw new Error("Unable to fetch customer details");
