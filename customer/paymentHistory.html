@@ -306,14 +306,6 @@
       }
     </script>
     <script>
-      const uid = localStorage.getItem("uid");
-
-      const savedImage = localStorage.getItem("profileImage_" + uid);
-
-      if (savedImage) {
-        document.getElementById("navbarProfileImage").src = savedImage;
-      }
-
       async function loadCustomerName() {
         if (!uid) return;
 
@@ -330,6 +322,11 @@
           );
 
           const user = await response.json();
+          // Load latest profile picture from backend
+          if (user.profileImage) {
+            document.getElementById("navbarProfileImage").src =
+              user.profileImage;
+          }
 
           document.getElementById("navbarName").innerText =
             user.uname || "Customer";

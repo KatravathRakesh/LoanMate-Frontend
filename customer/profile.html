@@ -360,16 +360,6 @@
       if (!userId) {
         alert("Please login again.");
       } else {
-        const imageKey = "profileImage_" + userId;
-
-        // Load previously saved image
-        const savedImage = localStorage.getItem(imageKey);
-
-        if (savedImage) {
-          profilePreview.src = savedImage;
-          navbarProfileImage.src = savedImage;
-        }
-
         // Compress image before saving
         function compressImage(file) {
           return new Promise((resolve, reject) => {
@@ -500,6 +490,11 @@
             }
 
             const user = await response.json();
+            // Load latest profile picture from backend
+            if (user.profileImage) {
+              profilePreview.src = user.profileImage;
+              navbarProfileImage.src = user.profileImage;
+            }
 
             document.getElementById("fullNameInput").value = user.uname || "";
             document.getElementById("emailInput").value = user.email || "";

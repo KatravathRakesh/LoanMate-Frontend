@@ -380,15 +380,6 @@
       </div>
     </footer>
     <script>
-      const userId = localStorage.getItem("uid");
-      const imageKey = "profileImage_" + userId;
-      const savedImage = localStorage.getItem(imageKey);
-
-      if (savedImage) {
-        document.getElementById("navbarProfileImage").src = savedImage;
-        document.getElementById("profileCardImage").src = savedImage;
-      }
-
       // Get logged-in customer details
       const customerName = localStorage.getItem("uname");
       const customerEmail = localStorage.getItem("email");
@@ -445,6 +436,13 @@
           }
 
           const user = await userResponse.json();
+          // Load latest profile picture from backend
+          if (user.profileImage) {
+            document.getElementById("navbarProfileImage").src =
+              user.profileImage;
+
+            document.getElementById("profileCardImage").src = user.profileImage;
+          }
 
           document.getElementById("navbarName").innerText =
             user.uname || "Customer";

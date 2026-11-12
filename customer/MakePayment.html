@@ -319,7 +319,7 @@
 
     <script>
       const uid = localStorage.getItem("uid");
-      
+
       const token = localStorage.getItem("token");
 
       const API_URL = "https://loanmate-backend.onrender.com";
@@ -332,12 +332,6 @@
       if (!uid || !token) {
         alert("Please login again.");
         window.location.href = "../login.html";
-      }
-
-      const savedImage = localStorage.getItem("profileImage_" + uid);
-
-      if (savedImage) {
-        document.getElementById("navbarProfileImage").src = savedImage;
       }
 
       async function loadCustomerName() {
@@ -354,6 +348,11 @@
           }
 
           const user = await response.json();
+          // Load latest profile picture from backend
+          if (user.profileImage) {
+            document.getElementById("navbarProfileImage").src =
+              user.profileImage;
+          }
 
           document.getElementById("navbarName").innerText =
             user.uname || "Customer";

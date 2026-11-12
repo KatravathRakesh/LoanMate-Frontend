@@ -106,13 +106,9 @@
               <div class="card admin-card">
                 <div class="card-body">
                   <h5>Loan Applications (Last 6 Months)</h5>
-                  <div class="bars">
-                    <span style="height: 35%">May</span
-                    ><span style="height: 48%">Jun</span
-                    ><span style="height: 57%">Jul</span
-                    ><span style="height: 66%">Aug</span
-                    ><span style="height: 78%">Sep</span
-                    ><span style="height: 92%">Oct</span>
+
+                  <div class="bars" id="loanApplicationsChart">
+                    <p class="text-muted">Loading loan applications...</p>
                   </div>
                 </div>
               </div>
@@ -121,11 +117,27 @@
               <div class="card admin-card">
                 <div class="card-body">
                   <h5>Loan Status Overview</h5>
+
                   <div class="status-list">
-                    <p>🟢 Active Loans <b>556</b></p>
-                    <p>🔵 Closed Loans <b>224</b></p>
-                    <p>🟡 Pending <b>73</b></p>
-                    <p>🔴 Rejected <b>43</b></p>
+                    <p>
+                      🟢 Active Loans
+                      <b id="activeLoanCount">Loading...</b>
+                    </p>
+
+                    <p>
+                      🔵 Closed Loans
+                      <b id="closedLoanCount">Loading...</b>
+                    </p>
+
+                    <p>
+                      🟡 Pending
+                      <b id="pendingLoanCount">Loading...</b>
+                    </p>
+
+                    <p>
+                      🔴 Rejected
+                      <b id="rejectedLoanCount">Loading...</b>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -283,65 +295,186 @@
 
       loadAdminNavbarProfile();
 
+      function loadLoanApplicationsChart(applications) {
+        const chart = document.getElementById("loanApplicationsChart");
+
+        if (!chart) return;
+
+        const today = new Date();
+
+        // Prepare the last 6 months
+        const months = [];
+
+        for (let i = 5; i >= 0; i--) {
+          const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
+
+          months.push({
+            label: date.toLocaleString("en-IN", {
+              month: "short",
+            }),
+            key:
+              date.getFullYear() +
+              "-" +
+              String(date.getMonth() + 1).padStart(2, "0"),
+            count: 0,
+          });
+        }
+
+        // Count applications month by month
+        applications.forEach((app) => {
+          const applicationDate =
+            app.applicationDate || app.createdAt || app.appliedDate || app.date;
+
+          if (!applicationDate) return;
+
+          const date = new Date(applicationDate);
+
+          if (isNaN(date.getTime())) return;
+
+          const key =
+            date.getFullYear() +
+            "-" +
+            String(date.getMonth() + 1).padStart(2, "0");
+
+          const month = months.find((m) => m.key === key);
+
+          if (month) {
+            month.count++;
+          }
+        });
+
+        const maximum = Math.max(1, ...months.map((m) => m.count));
+
+        // Display dynamic bars
+        chart.innerHTML = months
+          .map((month) => {
+            const height = Math.max(5, (month.count / maximum) * 100);
+
+            return `
+            <span
+                style="height: ${height}%"
+                title="${month.label}: ${month.count} applications"
+            >
+                ${month.count}
+                <small>${month.label}</small>
+            </span>
+        `;
+          })
+          .join("");
+      }
+
+      // =================================
+      // DYNAMIC LOAN STATUS OVERVIEW
+      // =================================
+
+      function loadLoanStatusOverview(loans, applications) {
+        const countStatus = (records, statusNames) => {
+          if (!records) return null;
+
+          return records.filter((record) => {
+            const status = String(
+              record.status || record.loanStatus || "",
+            ).toUpperCase();
+
+            return statusNames.includes(status);
+          }).length;
+        };
+
+        const active = countStatus(loans, ["ACTIVE"]);
+        const closed = countStatus(loans, ["CLOSED", "COMPLETED"]);
+
+        const pending = countStatus(applications, ["PENDING"]);
+        const rejected = countStatus(applications, ["REJECTED"]);
+
+        document.getElementById("activeLoanCount").innerText =
+          active === null ? "Unavailable" : active;
+
+        document.getElementById("closedLoanCount").innerText =
+          closed === null ? "Unavailable" : closed;
+
+        document.getElementById("pendingLoanCount").innerText =
+          pending === null ? "Unavailable" : pending;
+
+        document.getElementById("rejectedLoanCount").innerText =
+          rejected === null ? "Unavailable" : rejected;
+      }
+
       // =================================
       // LOAD DASHBOARD DATA
       // =================================
 
       async function loadDashboard() {
-        try {
-          const [customerResponse, loanResponse, applicationResponse] =
-            await Promise.all([
-              fetch(`${API_URL}/user/all`, {
-                headers: authHeaders,
-              }),
-              fetch(`${API_URL}/loans/getAllLoan`, {
-                headers: authHeaders,
-              }),
-              fetch(`${API_URL}/loan/findAllLoan`, {
-                headers: authHeaders,
-              }),
-            ]);
+        let customers = null;
+        let loans = null;
+        let applications = null;
 
-          if (
-            !customerResponse.ok ||
-            !loanResponse.ok ||
-            !applicationResponse.ok
-          ) {
-            throw new Error("Unable to fetch dashboard data");
+        try {
+          const results = await Promise.allSettled([
+            fetch(`${API_URL}/user/all`, {
+              headers: authHeaders,
+            }),
+
+            fetch(`${API_URL}/loans/getAllLoan`, {
+              headers: authHeaders,
+            }),
+
+            fetch(`${API_URL}/loan/findAllLoan`, {
+              headers: authHeaders,
+            }),
+          ]);
+
+          // Process customer response
+          if (results[0].status === "fulfilled" && results[0].value.ok) {
+            customers = await results[0].value.json();
+
+            const customerList = customers.filter(
+              (user) => user.role?.toUpperCase() === "CUSTOMER",
+            );
+
+            document.getElementById("totalCustomers").innerText =
+              customerList.length;
+          } else {
+            console.error("Customer API failed:", results[0]);
           }
 
-          const customers = await customerResponse.json();
-          const loans = await loanResponse.json();
-          const applications = await applicationResponse.json();
+          // Process loan response
+          if (results[1].status === "fulfilled" && results[1].value.ok) {
+            loans = await results[1].value.json();
 
-          // Total customers
-          const customerList = customers.filter(
-            (user) => user.role?.toUpperCase() === "CUSTOMER",
-          );
+            document.getElementById("totalLoans").innerText = loans.length;
+          } else {
+            console.error("Loan API failed:", results[1]);
+          }
 
-          document.getElementById("totalCustomers").innerText =
-            customerList.length;
+          // Process application response
+          if (results[2].status === "fulfilled" && results[2].value.ok) {
+            applications = await results[2].value.json();
 
-          // Total loans
-          document.getElementById("totalLoans").innerText = loans.length;
+            const pending = applications.filter(
+              (app) => app.status?.toUpperCase() === "PENDING",
+            );
 
-          // Pending applications
-          const pending = applications.filter(
-            (app) => app.status?.toUpperCase() === "PENDING",
-          );
+            const approved = applications.filter(
+              (app) => app.status?.toUpperCase() === "APPROVED",
+            );
 
-          document.getElementById("pendingApplications").innerText =
-            pending.length;
+            document.getElementById("pendingApplications").innerText =
+              pending.length;
 
-          // Approved applications
-          const approved = applications.filter(
-            (app) => app.status?.toUpperCase() === "APPROVED",
-          );
+            document.getElementById("approvedLoans").innerText =
+              approved.length;
 
-          document.getElementById("approvedLoans").innerText = approved.length;
+            // Dynamic graph
+            loadLoanApplicationsChart(applications);
 
-          // Load recent applications
-          await loadRecentApplications(applications);
+            // Recent applications
+            await loadRecentApplications(applications);
+          } else {
+            console.error("Application API failed:", results[2]);
+          }
+
+          // Dynamic status overview
+          loadLoanStatusOverview(loans, applications);
         } catch (error) {
           console.error("Dashboard loading error:", error);
         }
