@@ -293,6 +293,7 @@
     </footer>
     <script>
       // Load customer name
+      const uid = localStorage.getItem("uid");
       async function loadCustomerName() {
         if (!uid) return;
 
